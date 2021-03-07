@@ -37,12 +37,11 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
     CalendarFormat set = new CalendarFormat(date);
     String stringDate = set.getYear();
     SharedPreferences prefGet;
-    String s;
     String str1;
     String str2;
     double olutar;
     double makeItRain;
-    String Test;
+    double makeitSnow;
     //kaikki tehty arraylist
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayList<String> array = new ArrayList<>();
@@ -236,15 +235,19 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
         TextView viskiHinta = (TextView) getActivity().findViewById(R.id.viskiHinta);
         TextView viskiKoko = (TextView) getActivity().findViewById(R.id.viskiKoko);
         TextView iAmPoor = (TextView) getActivity().findViewById(R.id.totalSumma);
+        TextView iAmFull = (TextView) getActivity().findViewById(R.id.totalLitrat);
 
         String selectedSpinner;
         String test;
         String vaihtaja;
+        String litra;
+        String end;
 
         if (arrayToday.contains("Valitse vuodenaika painikkeista")) {
             //Asetta vuoden
             months.setText("Vuosi on " + stringDate);
             makeItRain = 0;
+            makeitSnow=0;
             //tulostaa kaikki eurot vuodessa
             olutHinta.setText(printerYearEuro("olutEuro", stringDate) + "€");
             viiniHinta.setText(printerYearEuro("viiniEuro", stringDate) + "€");
@@ -265,12 +268,14 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
-
+            litra = new DecimalFormat("##.##").format(makeitSnow);
             // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
+            end= litra.replace(".", ",");
 
             //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
+            iAmFull.setText(end+"l");
         }
         if (arrayViikko.contains("1")) {
             //valittu spinner
@@ -278,6 +283,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             //kun spinerissä näkyy vuodet muokatti pois mutta vielä tarvitaan myöhemmin
             months.setText(" ");
             makeItRain = 0;
+            makeitSnow=0;
             //Jaka valittu spinneri kahteen osaan että voisin heittä argumentttiin
             String[] str = selectedSpinner.split(" ");
             //vuosi
@@ -302,16 +308,18 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
-
-            // vaihtaa pisteet pilkuksu
+            litra = new DecimalFormat("##.##").format(makeitSnow);
+            // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
+            end= litra.replace(".", ",");
 
-            //asetta koko hintaan
+            //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
-
+            iAmFull.setText(end+"l");
         }
         if (arrayVuosi.contains("1")) {
             makeItRain = 0;
+            makeitSnow=0;
             //kun spinerissä näkyy vuodet muokatti pois mutta vielä tarvitaan myöhemmin
             selectedSpinner = parent.getItemAtPosition(position).toString();
             //Jaka valittu spinneri kahteen osaan että voisin heittä argumentttiin
@@ -392,15 +400,19 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             viskiHinta.setText(printerMonthsEuro("viskiEuro", "viskieuro", str2, kuukausiTunnistaja) + "€");
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
-
-            //Pistestä pilkkuun
+            litra = new DecimalFormat("##.##").format(makeitSnow);
+            // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
-            //asetta setText
+            end= litra.replace(".", ",");
+
+            //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
+            iAmFull.setText(end+"l");
         }
         if (arrayList.contains("1")) {
 
             makeItRain = 0;
+            makeitSnow=0;
             //kun spinerissä näkyy vuodet muokatti pois mutta vielä tarvitaan myöhemmin
             selectedSpinner = parent.getItemAtPosition(position).toString();
 
@@ -437,11 +449,14 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
-
-            //Pistestä pilkkuun
+            litra = new DecimalFormat("##.##").format(makeitSnow);
+            // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
-            //asetta setText
+            end= litra.replace(".", ",");
+
+            //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
+            iAmFull.setText(end+"l");
         }
 
     }
@@ -506,7 +521,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
         // muokkasen doubleksi
         double endGame = Double.parseDouble(litra);
-
+        makeitSnow+=endGame;
         //muokka sen takaisin string
         String wee = Double.toString(endGame);
         //Piste muuttu pilkuksi
@@ -548,7 +563,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
         String olut = pref.getStr(productSmall + kuukausi + str2);
         double olutEuro = Double.parseDouble(olut);
-
+        makeitSnow+=olutEuro;
         String test = Double.toString(olutEuro);
         String vaihtaja = test.replace(".", ",");
         return vaihtaja;
@@ -594,7 +609,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             double olutEuro = Double.parseDouble(test);
             olutar += olutEuro;
         }
-
+        makeitSnow+=olutar;
         String test = new DecimalFormat("##.##").format(olutar);
 
         String vaihtaja = test.replace(".", ",");
