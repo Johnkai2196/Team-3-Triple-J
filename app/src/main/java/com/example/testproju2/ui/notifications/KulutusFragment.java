@@ -42,6 +42,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
     String str2;
     double olutar;
     double makeItRain;
+    String Test;
     //kaikki tehty arraylist
     ArrayList<String> arrayList = new ArrayList<>();
     ArrayList<String> array = new ArrayList<>();
