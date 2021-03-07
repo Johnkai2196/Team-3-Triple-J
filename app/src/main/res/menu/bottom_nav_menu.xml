@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_logo_alkoholi_svg_01_01"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_logo_kalenteri_invertedsvg_01_01"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_logo_kulutus_invertedsvg"
+        android:title="@string/title_notifications" />
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/ic_logo_settings_svg_01"
+        android:title="@string/title_setting" />
+</menu>
