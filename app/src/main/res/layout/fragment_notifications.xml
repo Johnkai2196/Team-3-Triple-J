@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="#5A5A5A"
     tools:context=".ui.notifications.KulutusFragment">
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
@@ -38,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="262dp" />
+        app:layout_constraintGuide_begin="234dp" />
 
     <TextView
         android:id="@+id/textView10"
@@ -65,10 +67,14 @@
             android:id="@+id/monthsText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:gravity="center"
             android:text="Vuodenaika"
             android:textSize="18sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,13 +82,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/totalSumma"
+                android:id="@+id/textView9"
                 android:layout_width="50dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="0,0€"
-                android:textSize="30sp" />
+                android:text="Juomat"
+                android:textAlignment="textStart"
+                android:textSize="28sp" />
 
             <TextView
                 android:id="@+id/totalLitrat"
@@ -91,7 +98,20 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="0l"
-                android:textSize="30sp" />
+                android:textAlignment="center"
+                android:textSize="28sp" />
+
+            <TextView
+                android:id="@+id/totalSumma"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="13dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0,0€"
+                android:textAlignment="textEnd"
+                android:textSize="28sp" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -101,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="280dp" />
+        app:layout_constraintGuide_begin="243dp" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -167,6 +187,12 @@
 
             </TableRow>
 
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#6C6C6C" />
+
             <TableRow
                 android:id="@+id/siideriRow"
                 android:layout_width="match_parent"
@@ -216,6 +242,17 @@
 
             </TableRow>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:backgroundTint="#4A4A4A" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#6C6C6C" />
+
             <TableRow
                 android:id="@+id/lonkeroRow"
                 android:layout_width="match_parent"
@@ -263,6 +300,17 @@
                     android:textAlignment="textEnd"
                     android:textSize="18sp" />
             </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:backgroundTint="#4A4A4A" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#6C6C6C" />
 
             <TableRow
                 android:id="@+id/viinaRow"
@@ -313,6 +361,17 @@
 
             </TableRow>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:backgroundTint="#4A4A4A" />
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#6C6C6C" />
+
             <TableRow
                 android:id="@+id/likooriRow"
                 android:layout_width="match_parent"
@@ -360,6 +419,17 @@
                     android:textAlignment="textEnd"
                     android:textSize="18sp" />
             </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:backgroundTint="#4A4A4A" />
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#6C6C6C" />
 
             <TableRow
                 android:id="@+id/viiniRow"
@@ -409,6 +479,17 @@
                     android:textSize="18sp" />
             </TableRow>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:backgroundTint="#4A4A4A" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#6C6C6C" />
+
             <TableRow
                 android:id="@+id/viskiRow"
                 android:layout_width="match_parent"
@@ -455,6 +536,17 @@
 
             </TableRow>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#4A4A4A" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#6C6C6C" />
+
         </LinearLayout>
     </ScrollView>
 
@@ -474,7 +566,7 @@
 
         <Spinner
             android:id="@+id/vuosiSpinner"
-            android:layout_width="100dp"
+            android:layout_width="170dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/white"

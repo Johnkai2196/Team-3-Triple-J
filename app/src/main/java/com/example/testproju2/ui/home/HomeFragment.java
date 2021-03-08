@@ -1234,8 +1234,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         juomienKpl();
         annokset.reset();
         annostenMaara();
-
-
+        hamppariMuunnos();
+        alkoholinHaihtuminen();
     }
 
     /**

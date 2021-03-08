@@ -8,14 +8,24 @@ public class MonthsCounter {
     private String end;
     private String enda;
 
+    /**
+     *Asetan vuodet laskin ja kuukausi numerona
+     * @param vuosia Vuodet
+     * @param counter Minun countteri
+     * @param stringDat kuukausi numero
+     */
     public MonthsCounter(String vuosia, String counter, String stringDat) {
         this.vuosia = vuosia;
         this.stringDat = stringDat;
         this.counter = counter;
     }
 
+    /**
+     * Tämä methotti antaa minun järjestää minun kuukaudet miten haluan. kun otan sen sharedpreference kuukaudet counterin mukaan suurin ekana
+     * @return Palautta counter vuosi kuukausi
+     */
     public String set() {
-
+        //jos numero kuukudessa on
         if (stringDat.equals("1")) {
 
             end = counter + " " + vuosia + " Tammikuu";
@@ -64,7 +74,12 @@ public class MonthsCounter {
 
     }
 
+    /**
+     * asetta sen sharedpreference avain sana
+     * @return Palautta vuodet ja kuukaudet
+     */
     public String Another() {
+        //jos numero kuukudessa on
         if (stringDat.equals("1")) {
 
             enda = vuosia + " Tammikuu";

@@ -40,6 +40,7 @@ public class KalenteriFragment extends Fragment {
         textView.setText(formatter.format(date));
         //hankki paivan tiedot
         SimpleDateFormat formatter2 = new SimpleDateFormat("dMyyyy");
+        //Formattoi minun kalenteri sillä malillta mitä haluan
         String stringDate = formatter2.format(date);
 
         //Hankki textview
@@ -47,17 +48,19 @@ public class KalenteriFragment extends Fragment {
         TextView promille = root.findViewById(R.id.textView2);
         TextView kalorit = root.findViewById(R.id.textView4);
 
-
-        DataProccessor dataProccessor = new DataProccessor(getActivity(), "Calendar_valuer");
-        //Formattoi minun kalenteri sillä malillta mitä haluan
-
         //hakee sharedpreference(SP) kansion: Canedar_valuer
+        DataProccessor dataProccessor = new DataProccessor(getActivity(), "Calendar_valuer");
+
+        //hake sharedpreference(SP) hankki string promille ja paiva kuukausi ja vuosi
         String promin = dataProccessor.getStr("Promille " + stringDate);
         int kalo = dataProccessor.getInt("Kalori " + stringDate);
         String annoksi = dataProccessor.getStr("Annoksia " + stringDate);
+        //että pystyn vertaila edellistä päivää
         Date daet = backInTime(date);
+        //formatoisen saman mallin kun ylhällä oleva formatti
         String theHAHAHASucktobeyou = formatter2.format(daet);
-
+        //hake edellisen päivä string
+        String pastAnnoksi = dataProccessor.getStr("Annoksia " + theHAHAHASucktobeyou);
 
         // asetta textviewlle
         annoksia.setText("Annoksia " + annoksi);
@@ -68,6 +71,11 @@ public class KalenteriFragment extends Fragment {
         return root;
     }
 
+    /**
+     *onCreateView-tiedostoa käytetään fragmenttien avulla asettelun luomiseen ja näkymän suurentamiseen
+     * @param view Näkymän palautti onCreateView (android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle).
+     * @param savedInstanceState Jos se ei ole nolla, tätä fragmenttia rakennetaan uudelleen edellisestä tallennetusta tilasta, kuten tässä on annettu. Tämä arvo voi olla tyhjä.
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         //voin hankia calendar view
@@ -102,13 +110,13 @@ public class KalenteriFragment extends Fragment {
                 String promin = dataProccessor.getStr("Promille " + d);
                 int kalo = dataProccessor.getInt("Kalori " + d);
                 String annoksi = dataProccessor.getStr("Annoksia " + d);
-;
+                ;
                 //setta textiin
                 annoksia.setText("Annoksia " + annoksi);
                 promille.setText("Promillet " + promin + "‰");
                 kalorit.setText("Kalorit " + Integer.toString(kalo));
                 textView.setText(dayOfMonth + "." + (month + 1) + "." + year);
-                happyBonus.setText(percentage(d)+"%");
+                happyBonus.setText(percentage(d) + "%");
             }
         });
 
@@ -117,12 +125,22 @@ public class KalenteriFragment extends Fragment {
 
     private static final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
 
+    /**
+     * Että saan edellisen päivän
+     * @param date tänään oleva päivä
+     * @return palautaa eilisen päivän määrä
+     */
     private static Date backInTime(Date date) {
         {
             return new Date(date.getTime() - MILLIS_IN_A_DAY);
         }
     }
 
+    /**
+     * että pystyn vertaila ja palautta että onko juonut vähemän
+     * @param datte Päivän määrä että pystyn saada infot
+     * @return palautta prosenttin laskevan tiedot
+     */
     private String percentage(String datte) {
         Date date = new Date();
         String ender = "";
@@ -130,10 +148,10 @@ public class KalenteriFragment extends Fragment {
         DataProccessor dataProccessor = new DataProccessor(getActivity(), "Calendar_valuer");
         String theHAHAHASucktobeyou = formatter2.format(date);
         String vertailu1 = dataProccessor.getStr("Annoksia " + theHAHAHASucktobeyou);
-        Double kalo =Double.parseDouble(vertailu1);
+        Double kalo = Double.parseDouble(vertailu1);
 
         String vertailu2 = dataProccessor.getStr("Annoksia " + datte);
-        Double kala =Double.parseDouble(vertailu2);
+        Double kala = Double.parseDouble(vertailu2);
 
         if (kala == kalo) {
             ender = "0";
@@ -148,29 +166,29 @@ public class KalenteriFragment extends Fragment {
                     ender = Double.toString(kala);
                     Log.d("Helpmree", Integer.toString(2));
                 } else {
-                   double d=  (((double)(kala - kalo))/kala*100) ;
+                    double d = (((double) (kala - kalo)) / kala * 100);
 
-                    ender ="Edelisen päivän vertailtuu olet juonut vähemmän"+Integer.toString((int)d);
+                    ender = "Edelisen päivän vertailtuu olet juonut vähemmän" + Integer.toString((int) d);
                     //Prosentin nousu valitun päivän määrä vertailtuu
                     Log.d("Helpmeee", Double.toString(d));
                 }
-            }
-             else if (kalo > kala) {
+            } else if (kalo > kala) {
                 if (kalo == 0) {
-                ender = Double.toString(kalo);
-                Log.d("Helpmeae", Double.toString(kalo));
-            } else if (kala == 0) {
-                ender = Double.toString(kala);
-                Log.d("Helpmeve", Double.toString(kala));
-            } else {
+                    ender = Double.toString(kalo);
+                    Log.d("Helpmeae", Double.toString(kalo));
+                } else if (kala == 0) {
+                    ender = Double.toString(kala);
+                    Log.d("Helpmeve", Double.toString(kala));
+                } else {
 
-                 double d=  (((double)(kalo - kala))/kalo*100)+100 ;
+                    double d = (((double) (kalo - kala)) / kalo * 100) + 100;
 
-                ender ="Edelisen päivän vertailtuu olet juonut enemmän"+Integer.toString((int)d);
-                 Log.d("Helpmewe", ender);
-                Log.d("Helpmete", Integer.toString(7));
+                    ender = "Edelisen päivän vertailtuu olet juonut enemmän" + Integer.toString((int) d);
+                    Log.d("Helpmewe", ender);
+                    Log.d("Helpmete", Integer.toString(7));
+                }
             }
-        }}
+        }
 
         return ender;
     }

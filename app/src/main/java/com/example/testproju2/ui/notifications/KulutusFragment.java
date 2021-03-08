@@ -86,7 +86,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
                 for (Map.Entry<String, ?> entry : keys.entrySet()) {
                     array.add(entry.getValue().toString());
                 }
-                //Sen jälkeen jakaa sen kahteen että pysty pistää treemappin järjestämään niitä numero sarjan mukaisesti
+                //Sen jälkeen jakaa sen kahteen että pysty pistää treemappin järjestämään niitä numero sarjan mukaisesti että korkein ensimmäisenä
                 for (int counter = 0; counter < array.size(); counter++) {
                     String s = array.get(counter);
                     String[] str = s.split(" ");
@@ -247,7 +247,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             //Asetta vuoden
             months.setText("Vuosi on " + stringDate);
             makeItRain = 0;
-            makeitSnow=0;
+            makeitSnow = 0;
             //tulostaa kaikki eurot vuodessa
             olutHinta.setText(printerYearEuro("olutEuro", stringDate) + "€");
             viiniHinta.setText(printerYearEuro("viiniEuro", stringDate) + "€");
@@ -271,11 +271,11 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             litra = new DecimalFormat("##.##").format(makeitSnow);
             // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
-            end= litra.replace(".", ",");
+            end = litra.replace(".", ",");
 
             //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
-            iAmFull.setText(end+"l");
+            iAmFull.setText(end + "l");
         }
         if (arrayViikko.contains("1")) {
             //valittu spinner
@@ -283,7 +283,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             //kun spinerissä näkyy vuodet muokatti pois mutta vielä tarvitaan myöhemmin
             months.setText(" ");
             makeItRain = 0;
-            makeitSnow=0;
+            makeitSnow = 0;
             //Jaka valittu spinneri kahteen osaan että voisin heittä argumentttiin
             String[] str = selectedSpinner.split(" ");
             //vuosi
@@ -311,15 +311,15 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             litra = new DecimalFormat("##.##").format(makeitSnow);
             // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
-            end= litra.replace(".", ",");
+            end = litra.replace(".", ",");
 
             //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
-            iAmFull.setText(end+"l");
+            iAmFull.setText(end + "l");
         }
         if (arrayVuosi.contains("1")) {
             makeItRain = 0;
-            makeitSnow=0;
+            makeitSnow = 0;
             //kun spinerissä näkyy vuodet muokatti pois mutta vielä tarvitaan myöhemmin
             selectedSpinner = parent.getItemAtPosition(position).toString();
             //Jaka valittu spinneri kahteen osaan että voisin heittä argumentttiin
@@ -403,16 +403,16 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             litra = new DecimalFormat("##.##").format(makeitSnow);
             // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
-            end= litra.replace(".", ",");
+            end = litra.replace(".", ",");
 
             //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
-            iAmFull.setText(end+"l");
+            iAmFull.setText(end + "l");
         }
         if (arrayList.contains("1")) {
 
             makeItRain = 0;
-            makeitSnow=0;
+            makeitSnow = 0;
             //kun spinerissä näkyy vuodet muokatti pois mutta vielä tarvitaan myöhemmin
             selectedSpinner = parent.getItemAtPosition(position).toString();
 
@@ -452,11 +452,11 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             litra = new DecimalFormat("##.##").format(makeitSnow);
             // vaihta pistettä pilkkuun
             vaihtaja = test.replace(".", ",");
-            end= litra.replace(".", ",");
+            end = litra.replace(".", ",");
 
             //pistää koko rahaan
             iAmPoor.setText(vaihtaja + "€");
-            iAmFull.setText(end+"l");
+            iAmFull.setText(end + "l");
         }
 
     }
@@ -521,7 +521,8 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
         // muokkasen doubleksi
         double endGame = Double.parseDouble(litra);
-        makeitSnow+=endGame;
+        //laskee kaikki litra yhtensä
+        makeitSnow += endGame;
         //muokka sen takaisin string
         String wee = Double.toString(endGame);
         //Piste muuttu pilkuksi
@@ -532,87 +533,125 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
     }
 
     /**
-     *hakee kuukausi sharedpreference(SP) kansiosta tiedot ja tulosta ne esille
-     * @param product Tuote nimi
+     * hakee kuukausi sharedpreference(SP) kansiosta tiedot ja tulosta ne esille
+     *
+     * @param product      Tuote nimi
      * @param productSmall tuotte pienellä kirjaimella "Pikku moka"
-     * @param str2 vuosi
-     * @param kuukausi kuukausi numero
+     * @param str2         vuosi
+     * @param kuukausi     kuukausi numero
      * @return Palautta string olevan juoman olevan euro kulutettu
      */
     private String printerMonthsEuro(String product, String productSmall, String str2, int kuukausi) {
+        //hakee sharedpreference(SP) kansio: juoma esim:olutEuro ja vuosi
         DataProccessor pref = new DataProccessor(getActivity(), product + str2);
 
+        //Hakee avain sanalla juoma esim:olutEuro, kuukausi ja vuoden avain sanalla
         String olut = pref.getStr(productSmall + kuukausi + str2);
+        //muokka string to double
         double olutEuro = Double.parseDouble(olut);
+        //laskee kaikki eurot yhtensä
         makeItRain += olutEuro;
+        //muokka sen takaisin string
         String test = Double.toString(olutEuro);
+        //Piste muuttu pilkuksi
         String vaihtaja = test.replace(".", ",");
+        //palautta mitä on saanut
         return vaihtaja;
     }
 
     /**
-     *hakee kuukausi sharedpreference(SP) kansiosta tiedot ja tulosta ne esille
-     * @param product Juoman nimi
+     * hakee kuukausi sharedpreference(SP) kansiosta tiedot ja tulosta ne esille
+     *
+     * @param product      Juoman nimi
      * @param productSmall Juoma pienellä kirjaimella "Pikku moka"
-     * @param str2 Vuosi
-     * @param kuukausi Kuukauden numero
+     * @param str2         Vuosi
+     * @param kuukausi     Kuukauden numero
      * @return Palautta string olevan juoman olevan litra juonut
      */
     private String printerMonthsLitra(String product, String productSmall, String str2, int kuukausi) {
+        //hakee sharedpreference(SP) kansio: juoma esim:olutLitra ja vuosi
         DataProccessor pref = new DataProccessor(getActivity(), product + str2);
 
+        //Hakee avain sanalla juoma esim:olutlitra, kuukausi ja vuoden avain sanalla
         String olut = pref.getStr(productSmall + kuukausi + str2);
+        //muokka string to double
         double olutEuro = Double.parseDouble(olut);
-        makeitSnow+=olutEuro;
+        //laskee kaikki litra yhtensä
+        makeitSnow += olutEuro;
+        //Piste muuttu pilkuksi
         String test = Double.toString(olutEuro);
+        //Piste muuttu pilkuksi
         String vaihtaja = test.replace(".", ",");
+        //palautta mitä on saanut
         return vaihtaja;
     }
 
     /**
+     * Hakee toistuvasti sharedpreference(SP) kaikki tiedot eurot ja lisää sen double olutar
      *
      * @param product Juoman nimi
-     * @param year Vuosi
-     * @return
+     * @param year    Vuosi
+     * @return Palautta Vuoden käytetty euro juomat
      */
     private String printerYearEuro(String product, String year) {
         olutar = 0;
-        SharedPreferences pref = getActivity().getSharedPreferences(product + year, Activity.MODE_PRIVATE);//hakee sharedpreference(SP) kansion: oluEuro
+        //hakee sharedpreference(SP) kansion: oluEuroVuosi
+        SharedPreferences pref = getActivity().getSharedPreferences(product + year, Activity.MODE_PRIVATE);
 
-
+        //hankkki kaikki sharedpreference(SP) ja pistää sen Map objektiin
         Map<String, ?> keysa = pref.getAll();
 
+        //selaa elementtejä taulukoissa
         for (Map.Entry<String, ?> entry : keysa.entrySet()) {
 
+            //hankki string
             String test = entry.getValue().toString();
+            //muokka string to double
             double olutEuro = Double.parseDouble(test);
+            //lisää sen double
             olutar += olutEuro;
         }
 
+        //koko euro yhtensä
         makeItRain += olutar;
+        //muokka muotoo että se on 00.999->00.99
         String test = new DecimalFormat("##.##").format(olutar);
-
+        //Vaihtaa pillkua pisteksi
         String vaihtaja = test.replace(".", ",");
+        //palautta mitä on saanut
         return vaihtaja;
     }
 
-
+    /**
+     * Hakee toistuvasti sharedpreference(SP) kaikki tiedot litrasta ja lisää sen double olutar
+     *
+     * @param product Juoman nimi
+     * @param year    Vuosi
+     * @returnta Palauttaa vuoden vedetty juomat
+     */
     private String printerYearLitra(String product, String year) {
         olutar = 0;
+        //hakee sharedpreference(SP) kansion: olutLitraVuosi
         SharedPreferences pref = getActivity().getSharedPreferences(product + year, Activity.MODE_PRIVATE);//hakee sharedpreference(SP) kansion: oluEuro
 
+        //hankkki kaikki sharedpreference(SP) ja pistää sen Map objektiin
         Map<String, ?> keysa = pref.getAll();
-
+        //selaa elementtejä taulukoissa
         for (Map.Entry<String, ?> entry : keysa.entrySet()) {
-
+            //hankki string
             String test = entry.getValue().toString();
+            //muokka string to double
             double olutEuro = Double.parseDouble(test);
+            //lisää sen double
             olutar += olutEuro;
         }
-        makeitSnow+=olutar;
+        //koko litra yhtensä
+        makeitSnow += olutar;
+        //muokka muotoo että se on 00.999->00.99
         String test = new DecimalFormat("##.##").format(olutar);
-
+        //Vaihtaa pillkua pisteksi
         String vaihtaja = test.replace(".", ",");
+        //palautta mitä on saanut
         return vaihtaja;
     }
 

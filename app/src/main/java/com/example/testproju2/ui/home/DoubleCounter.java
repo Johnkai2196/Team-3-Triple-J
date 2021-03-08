@@ -8,6 +8,8 @@ public class DoubleCounter {
         this.startValue = 0.0;
     }
     //Annokset
+
+
     public void AnnosMietoYksi() {this.startValue += 0.4;}
     public void AnnosMietoKaksi() {this.startValue += 0.7;}
     public void AnnosMietoKolme() {this.startValue += 1.0;} // yks annos
