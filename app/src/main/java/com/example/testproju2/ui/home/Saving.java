@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 
 import java.util.Map;
 
-public class DataProccessor {
+public class Saving {
     private static Context context;
     private static String FILE_NAME;
 
@@ -15,7 +15,7 @@ public class DataProccessor {
      * @param contexta getActivity fragment varten
      * @param FILE_NAMEA Tiedoston nimi
      */
-    public DataProccessor(Context contexta, String FILE_NAMEA) {
+    public Saving(Context contexta, String FILE_NAMEA) {
         context = contexta;
         FILE_NAME = FILE_NAMEA;
     }
@@ -49,6 +49,19 @@ public class DataProccessor {
         return prefs.getInt(key, 0);
     }
 
+
+
+    /**
+     * Hakee sharedpreferensiin string
+     * @param key Avain sharedpreferensiin
+     * @return Palautta saatu oleva tieto
+     */
+    public static String getStr(String key) {
+        //hakee kansio nimeltään esim: olutEuro2021
+        SharedPreferences prefs = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
+        //palautta jos löytää sen jos ei ole mitää palautta 0
+        return prefs.getString(key, "0");
+    }
     /**
      * Asetta sharedpreferensiin string
      * @param key Avain sharedpreferensiin
@@ -64,19 +77,6 @@ public class DataProccessor {
         //varmistaa sen esim kun painaa enter nappia
         editor.apply();
     }
-
-    /**
-     * Hakee sharedpreferensiin string
-     * @param key Avain sharedpreferensiin
-     * @return Palautta saatu oleva tieto
-     */
-    public static String getStr(String key) {
-        //hakee kansio nimeltään esim: olutEuro2021
-        SharedPreferences prefs = context.getSharedPreferences(FILE_NAME, Activity.MODE_PRIVATE);
-        //palautta jos löytää sen jos ei ole mitää palautta 0
-        return prefs.getString(key, "0");
-    }
-
 
 
 }

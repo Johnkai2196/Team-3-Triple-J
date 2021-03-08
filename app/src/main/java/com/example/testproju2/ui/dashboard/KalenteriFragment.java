@@ -1,7 +1,6 @@
 package com.example.testproju2.ui.dashboard;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.testproju2.R;
-import com.example.testproju2.ui.home.DataProccessor;
+import com.example.testproju2.ui.home.Saving;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,7 +30,7 @@ public class KalenteriFragment extends Fragment {
 
         //asettaa päivän määrä formatti
         SimpleDateFormat formatter = new SimpleDateFormat("d.M.yyyy");
-
+        String enderman="";
 
         // uusi date
         Date date = new Date();
@@ -47,33 +46,73 @@ public class KalenteriFragment extends Fragment {
         TextView annoksia = root.findViewById(R.id.textView5);
         TextView promille = root.findViewById(R.id.textView2);
         TextView kalorit = root.findViewById(R.id.textView4);
-
+        TextView happyBonus = root.findViewById(R.id.textView6);
         //hakee sharedpreference(SP) kansion: Canedar_valuer
-        DataProccessor dataProccessor = new DataProccessor(getActivity(), "Calendar_valuer");
+        Saving saving = new Saving(getActivity(), "Calendar_valuer");
 
         //hake sharedpreference(SP) hankki string promille ja paiva kuukausi ja vuosi
-        String promin = dataProccessor.getStr("Promille " + stringDate);
-        int kalo = dataProccessor.getInt("Kalori " + stringDate);
-        String annoksi = dataProccessor.getStr("Annoksia " + stringDate);
+        String prominense = saving.getStr("Promille " + stringDate);
+        String promin = prominense.replace(",",".");
+        int kalo = saving.getInt("Kalori " + stringDate);
+        String annos= saving.getStr("Annoksia " + stringDate);
+        String annoksi = annos.replace(",",".");
         //että pystyn vertaila edellistä päivää
         Date daet = backInTime(date);
         //formatoisen saman mallin kun ylhällä oleva formatti
         String theHAHAHASucktobeyou = formatter2.format(daet);
         //hake edellisen päivä string
-        String pastAnnoksi = dataProccessor.getStr("Annoksia " + theHAHAHASucktobeyou);
+        String pastAnnoksi = saving.getStr("Annoksia " + theHAHAHASucktobeyou);
+        String passingAnnos= pastAnnoksi.replace(",",".");
+        Double kala = Double.parseDouble(passingAnnos);
+        Double kallio = Double.parseDouble(annoksi);
+
+        if (kala.equals(kallio)) {
+            enderman = "Olet juonut yhtä paljon kuin valittuna päivänä";
+        } else {
+//s
+            if (kallio < kala) {
+                if (kallio == 0) {
+                    enderman = "Aiempaan päivään verrattuna olet juonut 100% vähemmän";
+                } else if (kala == 0) {
+                    enderman = Double.toString(kala);
+
+                } else {
+                    double d = (((double) (kala - kallio)) / kala * 100);
+
+                    enderman = "Aiempaan päivään verrattuna olet juonut " + (int) d + "% vähemmän";
+                    //Prosentin nousu valitun päivän määrä vertailtuu
+
+                }
+            } else if (kallio > kala) {
+                if (kallio == 0) {
+                    enderman = Double.toString(kallio);
+
+                } else if (kala == 0) {
+                    enderman = "Aiempaan päivään verrattuna olet juonut 100% enemmän";
+
+                } else {
+
+                    double d = (((double) (kala - kallio)) / kala * 100);
+
+                    enderman = "Aiempaan päivään verrattuna olet juonut " + Math.abs((int) d) + "% enemmän";
+
+                }
+            }
+        }
 
         // asetta textviewlle
         annoksia.setText("Annoksia " + annoksi);
         promille.setText("Promillet " + promin + "‰");
         kalorit.setText("Kalorit " + Integer.toString(kalo));
-
+        happyBonus.setText(enderman);
 
         return root;
     }
 
     /**
-     *onCreateView-tiedostoa käytetään fragmenttien avulla asettelun luomiseen ja näkymän suurentamiseen
-     * @param view Näkymän palautti onCreateView (android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle).
+     * onCreateView-tiedostoa käytetään fragmenttien avulla asettelun luomiseen ja näkymän suurentamiseen
+     *
+     * @param view               Näkymän palautti onCreateView (android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle).
      * @param savedInstanceState Jos se ei ole nolla, tätä fragmenttia rakennetaan uudelleen edellisestä tallennetusta tilasta, kuten tässä on annettu. Tämä arvo voi olla tyhjä.
      */
     @Override
@@ -103,20 +142,20 @@ public class KalenteriFragment extends Fragment {
                 String d = dayOfMonth + "" + (month + 1) + "" + year;
 
 
-                DataProccessor dataProccessor = new DataProccessor(getActivity(), "Calendar_valuer");
+                Saving saving = new Saving(getActivity(), "Calendar_valuer");
 
 
                 //hakee sharedpreference(SP) kansion: Canedar_valuer
-                String promin = dataProccessor.getStr("Promille " + d);
-                int kalo = dataProccessor.getInt("Kalori " + d);
-                String annoksi = dataProccessor.getStr("Annoksia " + d);
-                ;
+                String promin = saving.getStr("Promille " + d);
+                int kalo = saving.getInt("Kalori " + d);
+                String annoksi = saving.getStr("Annoksia " + d);
+
                 //setta textiin
                 annoksia.setText("Annoksia " + annoksi);
                 promille.setText("Promillet " + promin + "‰");
                 kalorit.setText("Kalorit " + Integer.toString(kalo));
                 textView.setText(dayOfMonth + "." + (month + 1) + "." + year);
-                happyBonus.setText(percentage(d) + "%");
+                happyBonus.setText(percentage(d));
             }
         });
 
@@ -127,6 +166,7 @@ public class KalenteriFragment extends Fragment {
 
     /**
      * Että saan edellisen päivän
+     *
      * @param date tänään oleva päivä
      * @return palautaa eilisen päivän määrä
      */
@@ -138,6 +178,7 @@ public class KalenteriFragment extends Fragment {
 
     /**
      * että pystyn vertaila ja palautta että onko juonut vähemän
+     *
      * @param datte Päivän määrä että pystyn saada infot
      * @return palautta prosenttin laskevan tiedot
      */
@@ -145,47 +186,46 @@ public class KalenteriFragment extends Fragment {
         Date date = new Date();
         String ender = "";
         SimpleDateFormat formatter2 = new SimpleDateFormat("dMyyyy");
-        DataProccessor dataProccessor = new DataProccessor(getActivity(), "Calendar_valuer");
+        Saving saving = new Saving(getActivity(), "Calendar_valuer");
         String theHAHAHASucktobeyou = formatter2.format(date);
-        String vertailu1 = dataProccessor.getStr("Annoksia " + theHAHAHASucktobeyou);
-        Double kalo = Double.parseDouble(vertailu1);
+        String vertailu1 = saving.getStr("Annoksia " + theHAHAHASucktobeyou);
+        String original = vertailu1.replace(",", ".");
+        Double kalo = Double.parseDouble(original);
+        String vertailu2 = saving.getStr("Annoksia " + datte);
+        String Dublicate = vertailu2.replace(",", ".");
+        Double kala = Double.parseDouble(Dublicate);
 
-        String vertailu2 = dataProccessor.getStr("Annoksia " + datte);
-        Double kala = Double.parseDouble(vertailu2);
-
-        if (kala == kalo) {
-            ender = "0";
-            Log.d("Helpmee", Integer.toString(5));
+        if (kala.equals(kalo)) {
+            ender = "Olet juonut yhtä paljon kuin valittuna päivänä";
         } else {
-
+//s
             if (kalo < kala) {
                 if (kalo == 0) {
-                    ender = Double.toString(kala);
-                    Log.d("Helpmege", Integer.toString(1));
+                    ender = "Valittuun päivään verrattuna olet juonut 100% vähemmän";
+
                 } else if (kala == 0) {
                     ender = Double.toString(kala);
-                    Log.d("Helpmree", Integer.toString(2));
+
                 } else {
                     double d = (((double) (kala - kalo)) / kala * 100);
 
-                    ender = "Edelisen päivän vertailtuu olet juonut vähemmän" + Integer.toString((int) d);
+                    ender = "Valittuun päivään verrattuna olet juonut " + (int) d + "% vähemmän";
                     //Prosentin nousu valitun päivän määrä vertailtuu
-                    Log.d("Helpmeee", Double.toString(d));
+
                 }
             } else if (kalo > kala) {
                 if (kalo == 0) {
                     ender = Double.toString(kalo);
-                    Log.d("Helpmeae", Double.toString(kalo));
+
                 } else if (kala == 0) {
-                    ender = Double.toString(kala);
-                    Log.d("Helpmeve", Double.toString(kala));
+                    ender = "Valittuun päivään verrattuna olet juonut 100% enemmän";
+
                 } else {
 
-                    double d = (((double) (kalo - kala)) / kalo * 100) + 100;
+                    double d = (((double) (kala - kalo)) / kala * 100);
 
-                    ender = "Edelisen päivän vertailtuu olet juonut enemmän" + Integer.toString((int) d);
-                    Log.d("Helpmewe", ender);
-                    Log.d("Helpmete", Integer.toString(7));
+                    ender = "Valittuun päivään verrattuna olet juonut " + Math.abs((int) d) + "% enemmän";
+
                 }
             }
         }
