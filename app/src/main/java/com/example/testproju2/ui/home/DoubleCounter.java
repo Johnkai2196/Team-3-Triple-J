@@ -8,15 +8,16 @@ public class DoubleCounter {
         this.startValue = 0.0;
     }
     //Annokset
-
-
+    /**
+     *AnnosMietoYksi lisää 0.4 double arvon, mikä vastaa 0.4 alkoholiannosta
+     * Kaikki Annos -methodit lisäävät this.startValuen arvoa, riippuen mitä methodia kutsutaan. esim AnnosLikooriKolme lisää 6.9 annosta.
+     */
     public void AnnosMietoYksi() {this.startValue += 0.4;}
     public void AnnosMietoKaksi() {this.startValue += 0.7;}
     public void AnnosMietoKolme() {this.startValue += 1.0;} // yks annos
     public void AnnosMietoNelja() {this.startValue += 1.3;}
     public void AnnosMietoViisi() {this.startValue += 1.5;}
     public void AnnosMietoKuusi() {this.startValue += 2.0;} // kaks annosta
-    public void AnnosMietoSeiska() {this.startValue += 2.3;}
     public void AnnosViinaYksi() {this.startValue += 25;} // annoksia litran viinaa
     public void AnnosViinaKaksi() {this.startValue += 18;} // annoksia 0,7l viinaa
     public void AnnosViinaKolme() {this.startValue += 13;} // annoksia 0,5l viinaa
@@ -29,12 +30,21 @@ public class DoubleCounter {
     public void AnnosLikooriKuusi() {this.startValue += 16;} // annoksia 0,7l likööriä 30%
     public void AnnosViskiYksi() {this.startValue += 5;} // annoksia 0,2l viskiä
     public void AnnosViskiKaksi() {this.startValue += 17.5;} // annoksia 0,7l viskiä
-
+    /**
+     * reset palauttaa DoubleCounter -arvon nollaan.
+     */
     public void reset() {
         startValue = 0.0;
     }
-
+    /**
+     * getDouble palauttaa kaikki lasketut arvot yhteen laskettuna.
+     * @return
+     */
     public double getDouble() {
         return startValue;
     }
 }
+
+
+
+

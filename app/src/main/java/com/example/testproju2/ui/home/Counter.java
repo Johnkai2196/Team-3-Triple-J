@@ -5,27 +5,30 @@ public class Counter {
         private int startValue;
 
         public Counter() {
-            this.startValue = 0;
+                this.startValue = 0;
         }
         //yksi annos on noin 13g alkoholia
+
+        /**
+         *increaseKpl nostaa Counterin arvoa 1.
+         */
         public void increaseKpl() {this.startValue += 1;}
 
+        /**
+         * (increaseByZeroPointHalf - increaseViski2) -näiden välillä olevissa methodeissa nostetaan counterin arvoa alkoholinmäärä grammoina.
+         */
+        //Alkoholin litra määriä grammoina
         public void increaseByZeroPointHalf() {this.startValue += 6;} // 0.4 annosta
         public void increaseByZeroPointSeven() {this.startValue += 10;} // 0.7 annosta
         public void increaseByOne() {this.startValue += 13; } // 1 annos
         public void increaseByOnePointThree() {this.startValue += 16;} // 1.3 annos
-        public void increaseByOneAndHalf() {
-            this.startValue += 19;
-        } // 1.5 annos
+        public void increaseByOneAndHalf() { this.startValue += 19; } // 1.5 annos
         public void increaseByTwo() {this.startValue += 25;} // 2 annos
-        public void increaseByTwoPointThree() {this.startValue += 28;} // 2.3 annos
-
         //viinat
         public void increaseViinaLitra() {this.startValue += 325;} // 1l
         public void increaseViinaMelkeinLitra() {this.startValue += 234;} //0,7l
         public void increaseViinaPuoliLitraa() {this.startValue += 169;} //0,5l
         public void increaseViinaMelkeinPuoliLitraa() {this.startValue += 117;} // 0,35l
-
         //likoori
         public void increaseLikoori1PuoliLitraa() {this.startValue += 75;} // 0,5
         public void increaseLikoori1YliPuoliLitraa() {this.startValue += 105;} // 0,7
@@ -38,6 +41,10 @@ public class Counter {
         public void increaseViski2() {this.startValue += 227.5;} // 0,7l
 
         //Kalorit
+
+        /**
+         * Kaikissa IncreaseKalorit... methodeissa nostetaan counterin arvoa kalorimäärillä.
+         */
         //Olut
         public void increaseKaloritOlut1() {this.startValue += 132;} // 4,6% & 0,33
         public void increaseKaloritOlut2() {this.startValue += 200;} // 4,6% & 0,5
@@ -67,19 +74,20 @@ public class Counter {
         public void increaseKaloritViski1() {this.startValue += 440;} // 0,2l
         public void increaseKaloritViski2() {this.startValue += 1540;} // 0,5l
 
-
+        /**
+         * reset palauttaa DoubleCounter -arvon nollaan.
+         */
         //resetoi promillelaskurin
         public void reset() {
-            startValue = 0;
+                startValue = 0;
         }
 
+        /**
+         * getDouble palauttaa kaikki lasketut arvot yhteen laskettuna.
+         * @return
+         */
         //hakee ja palauttaa sen hetkisen arvon
         public int getValue() {
-            return startValue;
+                return startValue;
         }
-        public double getDouble() {
-            return startValue;
-        }
-    }
-
-
+}
