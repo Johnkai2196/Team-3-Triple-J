@@ -16,7 +16,7 @@ public class CalendarFormat {
 
     /**
      *että pystyn hake vuosi kalenterin formatti tyyli
-     * @return palautta sen
+     * @return palautta Vuoden
      */
     public String getYear() {
         SimpleDateFormat formatter1 = new SimpleDateFormat("yyyy");
@@ -24,7 +24,7 @@ public class CalendarFormat {
     }
     /**
      *että pystyn hake kuukausi kalenterin formatti tyyli
-     * @return palautta sen
+     * @return palautta kuukauden
      */
     public String getMonth() {
         SimpleDateFormat formatter2 = new SimpleDateFormat("M");
@@ -32,7 +32,7 @@ public class CalendarFormat {
     }
     /**
      *että pystyn hake kuukausi ja vuosi kalenterin formatti tyyli
-     * @return palautta sen
+     * @return palautta kuukausi ja vuosi
      */
     public String getMonthYear() {
         SimpleDateFormat formatter3 = new SimpleDateFormat("Myyyy");
@@ -40,7 +40,7 @@ public class CalendarFormat {
     }
     /**
      *että pystyn hake päivä kuukausi ja vuosi kalenterin formatti tyyli
-     * @return palautta sen
+     * @return päivä, kuukausi ja vuoden
      */
     public String getDateMonthYear() {
         SimpleDateFormat formatter4 = new SimpleDateFormat("dMyyyy");
@@ -48,7 +48,7 @@ public class CalendarFormat {
     }
     /**
      *että pystyn hake viikko kalenterin formatti tyyli
-     * @return palautta sen
+     * @return Viikko
      */
     public String getWeek(){
         SimpleDateFormat formatter5 = new SimpleDateFormat("w");

@@ -1079,52 +1079,60 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
      */
     private void megaSiideri() {
         //siideri
-
-        //hakee sharedpreference(SP) kansion: oluEuro
         //Viikko
-
+        //hakee sharedpreference(SP) kansion: viikkoJuomat
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
-
+        //hakee sharedpreference(SP) siiderieuro
         String siideriWeek = prefWeek.getStr("siiderieuro" + Week + vuosia);
-
+        // muokkaa sen pilkusta pisteeseen
         String miksiSiideriWeek = siideriWeek.replace(",", ".");
-
+        //asettaa saman kuin siideriEurolasku
         siideriEuroLaskuWeek = siideriEuroLasku;
-
+        // lisää double siideriEuroLaskuWeek
         siideriEuroLaskuWeek += Double.parseDouble(miksiSiideriWeek);
-
+        //muokkaa sen 21.12121->21.21
         String decimalStyle = new DecimalFormat("##.##").format(siideriEuroLaskuWeek);
-
+        //asettaa sen sharedpreference(SP)
         prefWeek.setStr("siiderieuro" + Week + vuosia, decimalStyle);
 
-
+        //Hakee siideriviikkoLitra
         String ol = prefWeek.getStr("siiderilitra" + Week + vuosia);
+        // muokkaa sen pilkusta pisteeseen
         String miksiOlOl = ol.replace(",", ".");
+        //asettaa saman kuin siideriLitralasku
         siideriLitraLaskuWeek = siideriLitraLasku;
+        // lisää double siideriLitraLaskuWeek
         siideriLitraLaskuWeek += Double.parseDouble(miksiOlOl);
+        //muokkaa sen 21.12121->21.21
         String testing = new DecimalFormat("##.##").format(siideriLitraLaskuWeek);
+        //asettaa sen sharedpreference(SP)
         prefWeek.setStr("siiderilitra" + Week + vuosia, testing);
 
         //Kuukausi
+        //hakee sharedpreference(SP) kansion: siideriEuro
         Saving pref = new Saving(getActivity(), "siideriEuro" + vuosia);
+        //hakee sharedpreference(SP) siiderieuro
         String siideri = pref.getStr("siiderieuro" + euString);
+        // muokkaa sen pilkusta pisteeseen
         String miksiSiideriSiideri = siideri.replace(",", ".");
+        //muokkasen double
         double siideriEuro = Double.parseDouble(miksiSiideriSiideri);
+        // lisää double siideriEuro
         siideriEuroLasku += siideriEuro;
-        //muokkaa decimaalin formatti
+        //muokkaa sen 21.12121->21.21
         String eu = new DecimalFormat("##.##").format(siideriEuroLasku);
         //talentaa Shredpreference
         pref.setStr("siiderieuro" + euString, eu);
 
-        //hakee sharedpreference(SP) kansion: olutLitra
+        //hakee sharedpreference(SP) kansion: siideriLitra
         Saving setLitra = new Saving(getActivity(), "siideriLitra" + vuosia);
         //hakee sharedpreference tiedot että pystyn lisää
         String litra = setLitra.getStr("siiderilitra" + euString);
+        //muokkaa sen pilkusta pisteeseen
         String miksiSiideriLitra = litra.replace(",", ".");
-
         //muokkasen double
         double siideriLitra = Double.parseDouble(miksiSiideriLitra);
-
+        // lisää double siideriLitra
         siideriLitraLasku += siideriLitra;
         //asettaa SP editointi valmiuteen
 
@@ -1344,53 +1352,68 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
      * Tallentaa viini sharedpreference(SP)
      */
     private void megaViina() {
-        //hakee sharedpreference(SP) kansion: oluEuro
+
 
         //Viikko
+        // hakee sharedpreference(SP) kansion: viikkoJuomat
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
+        //hakee sharedpreference(SP) viinaeuro
         String viinaWeek = prefWeek.getStr("viinaeuro" + Week + vuosia);
+        // muokkaa sen pilkusta pisteeseen
         String miksiViinaWeek = viinaWeek.replace(",", ".");
+        //asettaa saman kuin viinaEurolasku
         viinaEuroLaskuWeek = viinaEuroLasku;
+        // lisää double viinaEuroLaskuWeek
         viinaEuroLaskuWeek += Double.parseDouble(miksiViinaWeek);
+        //muokkasen 21.12121->21.21
         String decimalStyle = new DecimalFormat("##.##").format(viinaEuroLaskuWeek);
+        //asettaa sen sharedpreference(SP)
         prefWeek.setStr("viinaeuro" + Week + vuosia, decimalStyle);
-
-
+        //Hakee viinalitra
         String ol = prefWeek.getStr("viinalitra" + Week + vuosia);
+        // muokkaa sen pilkusta pisteeseen
         String miksiViinaOl = ol.replace(",", ".");
+        //asettaa saman kuin viinaLitralasku
         viinaLitraLaskuWeek = viinaLitraLasku;
+        // lisää double viinaLitraLaskuWeek
         viinaLitraLaskuWeek += Double.parseDouble(miksiViinaOl);
+        //muokkasen 21.12121->21.21
         String testing = new DecimalFormat("##.##").format(viinaLitraLaskuWeek);
+        //asettaa sen sharedpreference(SP)
         prefWeek.setStr("viinalitra" + Week + vuosia, testing);
 
         //Kuukausi
+        // hakee sharedpreference(SP) kansion: viinaEuro
         Saving pref = new Saving(getActivity(), "viinaEuro" + vuosia);
+        //hakee sharedpreference(SP) viinaeuro
         String viina = pref.getStr("viinaeuro" + euString);
+        // muokkaa sen pilkusta pisteeseen
         String miksiViinaViina = viina.replace(",", ".");
+        //muokkasen double
         double viinaEuro = Double.parseDouble(miksiViinaViina);
+        // lisää double viinaEuro
         viinaEuroLasku += viinaEuro;
-        //muokkaa decimaalin formatti
+        //muokkasen 21.12121->21.21
         String eu = new DecimalFormat("##.##").format(viinaEuroLasku);
-        //talentaa Shredpreference
+        //asettaa sen sharedpreference(SP)
         pref.setStr("viinaeuro" + euString, eu);
-
         //hakee sharedpreference(SP) kansion: olutLitra
         Saving setLitra = new Saving(getActivity(), "viinaLitra" + vuosia);
         //hakee sharedpreference tiedot että pystyn lisää
         String litra = setLitra.getStr("viinalitra" + euString);
+        // muokkaa sen pilkusta pisteeseen
         String miksiViinaLitra = litra.replace(",", ".");
-
         //muokkasen double
         double viinaLitra = Double.parseDouble(miksiViinaLitra);
-
+        // lisää double viinaLitra
         viinaLitraLasku += viinaLitra;
-        //asettaa SP editointi valmiuteen
-
-        //muokkaa decimaalin formatti
+        //muokkasen 21.12121->21.21
         String viinaLitrao = new DecimalFormat("##.##").format(viinaLitraLasku);
         //talentaa Shredpreference
         setLitra.setStr("viinalitra" + euString, viinaLitrao);
     }
+
+
 
     /**
      * tallentaa kun painaa save

@@ -552,11 +552,11 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
         //laskee kaikki litra yhtensä
         makeitSnow += endGame;
         //muokka sen takaisin string
-        String wee = Double.toString(endGame);
+        String oikea = Double.toString(endGame);
 
 
         //palautta mitä on saanut
-        return wee;
+        return oikea;
 
     }
 
