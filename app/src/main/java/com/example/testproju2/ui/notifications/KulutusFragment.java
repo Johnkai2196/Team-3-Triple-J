@@ -74,6 +74,8 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
      * Tämä antaa alaluokille mahdollisuuden alustaa itsensä, kun he tietävät, että näkemyshierarkiansa on luotu kokonaan.
      * Fragmentin näkemyshierarkia ei kuitenkaan ole kiinnitetty sen vanhempaan tässä vaiheessa.
      *
+     *
+     *
      * @param view               View palautti onCreateView (android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle).
      * @param savedInstanceState Jos se ei ole non-null, tätä fragmenttia rakennetaan uudelleen edellisestä tallennetusta tilasta, kuten tässä on annettu. Tämä arvo voi olla tyhjä.
      */

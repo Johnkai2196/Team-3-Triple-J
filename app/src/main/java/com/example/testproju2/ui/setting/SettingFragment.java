@@ -29,6 +29,7 @@ public class SettingFragment extends Fragment {
 
     /**
      * Luo tämän fragmentin näkymä sille annettujen argumenttien avulla.
+     * Tössä hoidan mitä tapahtuu kun käyttäjä pistää nimen, painon ja sukupuolen
      *
      * @param inflater           LayoutInflater-objekti, jota voidaan käyttää kaikkien fragmenttien paisuttamiseen
      * @param container          Jos se ei ole non-null, tämä on päänäkymä, johon fragmentin käyttöliittymä tulisi liittää. Katkelman ei pitäisi lisätä itse näkymää, mutta sitä voidaan käyttää näkymän LayoutParam-tiedostojen luomiseen. Tämä arvo voi olla tyhjä
