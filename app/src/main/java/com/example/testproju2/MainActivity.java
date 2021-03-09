@@ -20,9 +20,9 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        // pyörität sinun koodi ja onCreate koodi
         super.onCreate(savedInstanceState);
-
+        //asetteluresurssilla joka määrittelee käyttöliittymän
         setContentView(R.layout.activity_main);
         //löytä bottom nav
         BottomNavigationView navView = findViewById(R.id.nav_view);

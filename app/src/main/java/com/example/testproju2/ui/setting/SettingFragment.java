@@ -59,8 +59,8 @@ public class SettingFragment extends Fragment {
         // kuuntelee kun painaa button
         btn.setOnClickListener(new View.OnClickListener() {
             /**
-             *
-             * @param v
+             *Kun save nappi on painettu
+             * @param v kun näkymää on napsautettu.
              */
             @Override
             public void onClick(View v) {
@@ -73,6 +73,7 @@ public class SettingFragment extends Fragment {
                 //Hankkii käyttäjän syötetyt tiedot ja muokkaa ne toString
                 String inputName = nimi.getText().toString();
                 String inputWeight = weight.getText().toString();
+
                 int id = group.getCheckedRadioButtonId();
 
                 // jos käyttäjän syöttää nimen ja painon ja valitsee radiobuttonin
@@ -112,7 +113,9 @@ public class SettingFragment extends Fragment {
                     nimi.setHint("Name");
                     weight.setHint("Weight");
 
+                    //pistä näkyville
                     navView.setVisibility(View.VISIBLE);
+                    //sirtä suut talennuksen jälkeen alkoholilaskurin
                     navView.setSelectedItemId(R.id.navigation_home);
                 }
                 // jos käyttäjä ei syötä tietoja

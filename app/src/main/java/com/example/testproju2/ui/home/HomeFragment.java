@@ -90,11 +90,30 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     String euString = set.getMonthYear();
     String stringDat = set.getMonth();
 
+    /**
+     * Luo tämän fragmentin näkymä sille annettujen argumenttien avulla.
+     *
+     * @param inflater           LayoutInflater-objekti, jota voidaan käyttää kaikkien fragmenttien paisuttamiseen
+     * @param container          Jos se ei ole non-null, tämä on päänäkymä, johon fragmentin käyttöliittymä tulisi liittää.
+     *                           Katkelman ei pitäisi lisätä itse näkymää, mutta sitä voidaan käyttää näkymän LayoutParam-tiedostojen luomiseen. Tämä arvo voi olla tyhjä
+     * @param savedInstanceState Jos se ei ole non-null, tätä fragmenttia rakennetaan uudelleen edellisestä tallennetusta tilasta, kuten tässä on annettu.
+     * @return palautta minun luotu xml
+     */
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        //luo View minun xml:sstä
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         return root;
     }
 
+    /**
+     * Tässä methodissa rakennetaan Spinnerit
+     * Tehdään counterit, joihin lisätään arvoja onClick -methodissa
+     * Sisältää myös onClick -methodin buttoneille spinnerien valinnoista
+     * Spinnerin lista tehdään strings.xml tiedoista
+     *
+     * @param view               näkymä
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
@@ -262,10 +281,14 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         //Olut button
         Button olutButton = (Button) getView().findViewById(R.id.olutListaButton);
         olutButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Seuraavassa 7 onClick methodissa on tehdään if-lauseet spinnerlaatikoiden valinnoista.
+             * määriä nostetaan valintojen mukaisesti
+             * lopussa poistetaan stringeistä € ja l merkit, jotta saadaan ne double muotoon, sitten päivitetään määrät laskureihin
+             * @param v
+             */
             public void onClick(View v) {
                 // tässä lisää valitut spinnerlaatikot ja tekee promillelaskuri() methodin
-
-
                 //jos spinnerlaatikoiden valinnat vastaavat seuraavia, lisää oluenGramman määrää 1(13g)
                 if ((olutSpinner1.getSelectedItem().toString().equals("4.7%")) &&
                         (olutSpinner2.getSelectedItem().toString().equals("0.33l"))) {
@@ -276,39 +299,38 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 }
                 if ((olutSpinner1.getSelectedItem().toString().equals("4.7%")) &&
                         (olutSpinner2.getSelectedItem().toString().equals("0.5l"))) {
-                    oluenGrammat.increaseByOneAndHalf(); // 1.5
+                    oluenGrammat.increaseByOneAndHalf();
                     kalorit.increaseKaloritOlut2();
                     kplOlut.increaseKpl();
                     annokset.AnnosMietoViisi();
                 }
                 if ((olutSpinner1.getSelectedItem().toString().equals("5.5%")) &&
                         (olutSpinner2.getSelectedItem().toString().equals("0.33l"))) {
-                    oluenGrammat.increaseByOneAndHalf(); // 1.5
+                    oluenGrammat.increaseByOneAndHalf();
                     kalorit.increaseKaloritOlut3();
                     kplOlut.increaseKpl();
                     annokset.AnnosMietoNelja();
                 }
                 if ((olutSpinner1.getSelectedItem().toString().equals("5.5%")) &&
                         (olutSpinner2.getSelectedItem().toString().equals("0.5l"))) {
-                    oluenGrammat.increaseByTwo(); // 2
+                    oluenGrammat.increaseByTwo();
                     kalorit.increaseKaloritOlut4();
                     kplOlut.increaseKpl();
                     annokset.AnnosMietoKuusi();
                 }
                 //hankki Spinnerissä valittu itemmi
-                String eru = olutSpinner3.getSelectedItem().toString();
+                String spinner3 = olutSpinner3.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-                String loppu = eru.replace("€", " ");
+                String loppu = spinner3.replace("€", " ");
                 //lisää olutEuroLaskuu
                 olutEuroLasku += Double.parseDouble(loppu);
-
                 //hankki Litra oleva spinner
-                String erua = olutSpinner2.getSelectedItem().toString();
+                String spinner2 = olutSpinner2.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-                String loppuTulos = erua.replace("l", " ");
+                String loppuTulos = spinner2.replace("l", " ");
                 //lisää oluLitraLasku
                 olutLitraLasku += Double.parseDouble(loppuTulos);
-                //vedää promillelaskuri
+                //vetää nämä methodit
                 promillelaskuri();
                 kalorilaskuri();
                 juomienKpl();
@@ -365,19 +387,18 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     annokset.AnnosMietoKolme();
                 }
                 //hankki Spinnerissä valittu itemmi
-                String eru = siideriSpinner3.getSelectedItem().toString();
+                String spinner3 = siideriSpinner3.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-
-                String loppu = eru.replace("€", " ");
+                String loppu = spinner3.replace("€", " ");
                 //lisää siideriEuroLasku
                 siideriEuroLasku += Double.parseDouble(loppu);
                 //hankki Litra oleva spinner
-                String erua = siideriSpinner2.getSelectedItem().toString();
+                String spinner2 = siideriSpinner2.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-                String loppuTulos = erua.replace("l", " ");
+                String loppuTulos = spinner2.replace("l", " ");
                 //lisää oluLitraLasku
                 siideriLitraLasku += Double.parseDouble(loppuTulos);
-                //vedää promillelaskuri
+                //vetää nämä methodit
                 promillelaskuri();
                 kalorilaskuri();
                 juomienKpl();
@@ -400,40 +421,39 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 }
                 if ((lonkeroSpinner1.getSelectedItem().toString().equals("4.7%")) &&
                         (lonkeroSpinner2.getSelectedItem().toString().equals("0.5l"))) {
-                    lonkeroGrammat.increaseByOneAndHalf(); // 1.5
+                    lonkeroGrammat.increaseByOneAndHalf();
                     kalorit.increaseKaloritLonkero2();
                     kplLonkero.increaseKpl();
                     annokset.AnnosMietoViisi();
                 }
                 if ((lonkeroSpinner1.getSelectedItem().toString().equals("5.5%")) &&
                         (lonkeroSpinner2.getSelectedItem().toString().equals("0.33l"))) {
-                    lonkeroGrammat.increaseByOnePointThree(); // 1.3
+                    lonkeroGrammat.increaseByOnePointThree();
                     kalorit.increaseKaloritLonkero3();
                     kplLonkero.increaseKpl();
                     annokset.AnnosMietoNelja();
                 }
                 if ((lonkeroSpinner1.getSelectedItem().toString().equals("5.5%")) &&
                         (lonkeroSpinner2.getSelectedItem().toString().equals("0.5l"))) {
-                    lonkeroGrammat.increaseByTwo(); // // 2
+                    lonkeroGrammat.increaseByTwo();
                     kalorit.increaseKaloritLonkero4();
                     kplLonkero.increaseKpl();
                     annokset.AnnosMietoKuusi();
                 }
                 //hankki Spinnerissä valittu itemmi
-                String eru = lonkeroSpinner3.getSelectedItem().toString();
+                String spinner3 = lonkeroSpinner3.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-                String loppu = eru.replace("€", " ");
+                String loppu = spinner3.replace("€", " ");
                 //lisää lonkeroEuroLasku
                 lonkeroEuroLasku += Double.parseDouble(loppu);
                 //hankki Litra oleva spinner
-                String erua = lonkeroSpinner2.getSelectedItem().toString();
+                String spinner2 = lonkeroSpinner2.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-                String loppuTulos = erua.replace("l", " ");
+                String loppuTulos = spinner2.replace("l", " ");
                 //lisää oluLitraLasku
                 lonkeroLitraLasku += Double.parseDouble(loppuTulos);
-                //vetää promillelaskuri
+                //vetää nämä methodit
                 promillelaskuri();
-                //vetää kalorilaskuri
                 kalorilaskuri();
                 juomienKpl();
                 annostenMaara();
@@ -482,17 +502,18 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     annokset.AnnosViinaYksi();
                 }
                 //hankki Spinnerissä valittu itemmi
-                String eru = viinaSpinner3.getSelectedItem().toString();
+                String spinner3 = viinaSpinner3.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-
-                String loppu = eru.replace("€", " ");
+                String loppu = spinner3.replace("€", " ");
+                //lissä viinaEuroLasku
                 viinaEuroLasku += Double.parseDouble(loppu);
                 //hankki Litra oleva spinner
-                String erua = viinaSpinner2.getSelectedItem().toString();
+                String spinner2 = viinaSpinner2.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-                String loppuTulos = erua.replace("l", " ");
+                String loppuTulos = spinner2.replace("l", " ");
                 //lisää oluLitraLasku
                 viinaLitraLasku += Double.parseDouble(loppuTulos);
+                //vetää nämä methodit
                 promillelaskuri();
                 kalorilaskuri();
                 juomienKpl();
@@ -508,42 +529,42 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
             public void onClick(View v) {
                 if ((likooriSpinner1.getSelectedItem().toString().equals("17%")) &&
                         (likooriSpinner2.getSelectedItem().toString().equals("0.5l"))) {
-                    likooriGrammat.increaseLikoori1PuoliLitraa();//
+                    likooriGrammat.increaseLikoori1PuoliLitraa();
                     kalorit.increaseKaloritLikoori2();
                     kplLikoori.increaseKpl();
                     annokset.AnnosLikooriYksi();
                 }
                 if ((likooriSpinner1.getSelectedItem().toString().equals("17%")) &&
                         (likooriSpinner2.getSelectedItem().toString().equals("0.7l"))) {
-                    likooriGrammat.increaseLikoori1YliPuoliLitraa();//
+                    likooriGrammat.increaseLikoori1YliPuoliLitraa();
                     kalorit.increaseKaloritLikoori3();
                     kplLikoori.increaseKpl();
                     annokset.AnnosLikooriKaksi();
                 }
                 if ((likooriSpinner1.getSelectedItem().toString().equals("17%")) &&
                         (likooriSpinner2.getSelectedItem().toString().equals("0.04l"))) {
-                    likooriGrammat.increaseByZeroPointHalf(); //
+                    likooriGrammat.increaseByZeroPointHalf();
                     kalorit.increaseKaloritViina1();
                     kplLikoori.increaseKpl();
                     annokset.AnnosMietoYksi();
                 }
                 if ((likooriSpinner1.getSelectedItem().toString().equals("21%")) &&
                         (likooriSpinner2.getSelectedItem().toString().equals("0.5l"))) {
-                    likooriGrammat.increaseLikoori2PuoliLitraa(); //
+                    likooriGrammat.increaseLikoori2PuoliLitraa();
                     kalorit.increaseKaloritLikoori2();
                     kplLikoori.increaseKpl();
                     annokset.AnnosLikooriKolme();
                 }
                 if ((likooriSpinner1.getSelectedItem().toString().equals("21%")) &&
                         (likooriSpinner2.getSelectedItem().toString().equals("0.7l"))) {
-                    likooriGrammat.increaseLikoori2YliPuoliLitraa(); //
+                    likooriGrammat.increaseLikoori2YliPuoliLitraa();
                     kalorit.increaseKaloritLikoori3();
                     kplLikoori.increaseKpl();
                     annokset.AnnosLikooriNelja();
                 }
                 if ((likooriSpinner1.getSelectedItem().toString().equals("21%")) &&
                         (likooriSpinner2.getSelectedItem().toString().equals("0.04l"))) {
-                    likooriGrammat.increaseByZeroPointSeven(); //
+                    likooriGrammat.increaseByZeroPointSeven();
                     kalorit.increaseKaloritViina1();
                     kplLikoori.increaseKpl();
                     annokset.AnnosMietoKaksi();
@@ -564,24 +585,24 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 }
                 if ((likooriSpinner1.getSelectedItem().toString().equals("30%")) &&
                         (likooriSpinner2.getSelectedItem().toString().equals("0.04l"))) {
-                    likooriGrammat.increaseByOne(); //
+                    likooriGrammat.increaseByOne();
                     kalorit.increaseKaloritViina1();
                     kplLikoori.increaseKpl();
                     annokset.AnnosMietoKolme();
                 }
                 //hankki Spinnerissä valittu itemmi
-                String eru = likooriSpinner3.getSelectedItem().toString();
+                String spinner3 = likooriSpinner3.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-
-                String loppu = eru.replace("€", " ");
+                String loppu = spinner3.replace("€", " ");
+                //lisää likooriEuroLaskuun
                 likooriEuroLasku += Double.parseDouble(loppu);
                 //hankki Litra oleva spinner
-                String erua = likooriSpinner2.getSelectedItem().toString();
+                String spinner2 = likooriSpinner2.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-
-                String loppuTulos = erua.replace("l", " ");
+                String loppuTulos = spinner2.replace("l", " ");
                 //lisää oluLitraLasku
                 likooriLitraLasku += Double.parseDouble(loppuTulos);
+                //vetää nämä methodit
                 promillelaskuri();
                 kalorilaskuri();
                 juomienKpl();
@@ -611,17 +632,18 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     annokset.AnnosLikooriKolme();
                 }
                 //hankki Spinnerissä valittu itemmi
-                String eru = viiniSpinner3.getSelectedItem().toString();
+                String spinner3 = viiniSpinner3.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-
-                String loppu = eru.replace("€", " ");
+                String loppu = spinner3.replace("€", " ");
+                //lisää viiniEuroLasku
                 viiniEuroLasku += Double.parseDouble(loppu);
                 //hankki Litra oleva spinner
-                String erua = viiniSpinner2.getSelectedItem().toString();
+                String spinner2 = viiniSpinner2.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-                String loppuTulos = erua.replace("l", " ");
+                String loppuTulos = spinner2.replace("l", " ");
                 //lisää oluLitraLasku
                 viiniLitraLasku += Double.parseDouble(loppuTulos);
+                //vetää nämä methodit
                 promillelaskuri();
                 kalorilaskuri();
                 juomienKpl();
@@ -658,18 +680,18 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                     annokset.AnnosViskiKaksi();
                 }
                 //hankki Spinnerissä valittu itemmi
-                String eru = viskiSpinner3.getSelectedItem().toString();
+                String spinner3 = viskiSpinner3.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-
-                String loppu = eru.replace("€", " ");
+                String loppu = spinner3.replace("€", " ");
+                //lisää viskiEuroLasku
                 viskiEuroLasku += Double.parseDouble(loppu);
                 //hankki Litra oleva spinner
-                String erua = viskiSpinner2.getSelectedItem().toString();
+                String spinner2 = viskiSpinner2.getSelectedItem().toString();
                 //Vaihtaa kirjaimet että pystyn muokkka sen doubleksi
-
-                String loppuTulos = erua.replace("l", " ");
+                String loppuTulos = spinner2.replace("l", " ");
                 //lisää oluLitraLasku
                 viskiLitraLasku += Double.parseDouble(loppuTulos);
+                //vetää nämä methodit
                 promillelaskuri();
                 kalorilaskuri();
                 juomienKpl();
@@ -681,7 +703,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         //LASKURIEN RESET BUTTON
         Button resetButton = (Button) getView().findViewById(R.id.resetButton);
         resetButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Tässä methodissa nollataan listattujen counterien, muuttujien ja methodien arvot
+             * @param v kun näkymää on napsautettu.
+             */
             public void onClick(View v) {
+                //resetoi
                 oluenGrammat.reset();
                 siideriGrammat.reset();
                 lonkeroGrammat.reset();
@@ -689,6 +716,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 likooriGrammat.reset();
                 viiniGrammat.reset();
                 viskiGrammat.reset();
+                //pistää nollaksi
                 olutEuroLasku = 0;
                 lonkeroEuroLasku = 0;
                 viinaEuroLasku = 0;
@@ -704,6 +732,7 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 likooriLitraLasku = 0;
                 viiniLitraLasku = 0;
                 viskiLitraLasku = 0;
+                //resetoi
                 kplOlut.reset();
                 kplSiideri.reset();
                 kplLonkero.reset();
@@ -712,10 +741,13 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
                 kplViini.reset();
                 kplViski.reset();
                 kalorit.reset();
+                //päivittä textview
                 promillelaskuri();
                 kalorilaskuri();
                 juomienKpl();
+                //resetoi
                 annokset.reset();
+                //päivittä  textview
                 annostenMaara();
                 hamppariMuunnos();
                 alkoholinHaihtuminen();
@@ -724,6 +756,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
         Button saveButton = (Button) getView().findViewById(R.id.saveButton);
         saveButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Tässä methodissa talentaa kaikki sharedpreferencin listattujen counterien, muuttujien ja methodien arvot
+             * @param v kun näkymää on napsautettu.
+             */
             public void onClick(View v) {
 
                 saveFuntion();
@@ -731,11 +767,22 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         });
     }
 
+    /**
+     * mitä spinnerissä on valittu
+     *
+     * @param parent   AdapterView, jossa valinta tapahtui
+     * @param view     Napsautettu näkymä AdapterView-näkymässä
+     * @param position Missä valittu on tapahtunut
+     * @param id       Valitun kohteen rivitunnus
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
     }
 
+    /**
+     * hankkii textViewin annostenmäärä laskuriin ja muokkaa ulkomuodon halutuksi
+     */
     public void annostenMaara() {
         TextView tvAnnos = getView().findViewById(R.id.tvAnnosMaara);
         String popo = new DecimalFormat("##.##").format(annokset.getDouble());
@@ -743,6 +790,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         tvAnnos.setText(run);
     }
 
+    /**
+     * hankkii textViewit ja juomien sen hetkiset arvot juomienmäärä laskureihin
+     */
     public void juomienKpl() {
         TextView tv3 = getView().findViewById(R.id.tvAnnosOlut);
         TextView tv4 = getView().findViewById(R.id.tvAnnosSiideri);
@@ -758,14 +808,22 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         tv7.setText(Integer.toString(kplLikoori.getValue()));
         tv8.setText(Integer.toString(kplViini.getValue()));
         tv9.setText(Integer.toString(kplViski.getValue()));
-        //Double.toString tai new DecimalFormat("##.##").format
+
     }
 
+    /**
+     * hankkii textViewin ja asettaa arvon Kalorilaskuriin
+     */
     public void kalorilaskuri() {
         TextView tv2 = getView().findViewById(R.id.tvKalorit);
-        tv2.setText(Integer.toString(kalorit.getValue())); //Double.toString tai new DecimalFormat("##.##").format
+        tv2.setText(Integer.toString(kalorit.getValue()));
     }
 
+    /**
+     * hankkii painon sharedpreferenssistä ja muuntaa sen.
+     * tehdään laskutoimitus alkoholin haihtumiseen
+     * syötetään tulos textViewiin
+     */
     public void alkoholinHaihtuminen() {
         SharedPreferences prefGet = getActivity().getSharedPreferences("Date_value", Activity.MODE_PRIVATE);
 
@@ -776,6 +834,10 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         tvHaihtuminen.setText(Integer.toString(tuntiaTulos));
     }
 
+    /**
+     * saadaan kalorien määrä juustoina jakamalla yhden juustohampurilaisen kalorimäärä kalorilaskurin kokonais määrästä
+     * joka kerta kun kalorilaskuri on jaollinen 301 lisätään hampurilais-textViewin arvoon +1.
+     */
     public void hamppariMuunnos() {
         kaloritMuunnos = kalorit.getValue();
         int juustoMaara = kaloritMuunnos / juusto;
@@ -783,47 +845,57 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         tvJuusto.setText(Integer.toString(juustoMaara));
     }
 
+    /**
+     * @param parent AdapterView, jossa valinta tapahtui
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
+    /**
+     * talentaa kalenteri fragment varten kun hakee annos, kalorit ja promille
+     */
     private void calendarSaver() {
+        //hakee kansi nimeltään calendar_valuer
         Saving saving = new Saving(getActivity(), "Calendar_valuer");
-        //Formattoi minun kalenteri sillä malillta mitä haluan
 
-        //hakee sharedpreference(SP) kansion: data_value
+
+        //hakee sharedpreference(SP) kansion: calendar_valuer
         String promin = saving.getStr("Promille " + stringDateMonthYear);
         int kalori = saving.getInt("Kalori " + stringDateMonthYear);
         String anonksi = saving.getStr("Annoksia " + stringDateMonthYear);
 
+        //muutta pilkku pisteksi
         String miksi3 = anonksi.replace(",", ".");
-        double annoona = Double.parseDouble(miksi3);
-
-        double endanno = annokset.getDouble();
-        endanno += annoona;
-
+        //muutta string doubleksi
+        double annoksetSavingista = Double.parseDouble(miksi3);
+        //koko annos että pystyn lisää kokonaisen annokseen
+        double annoksetInWhole = annokset.getDouble();
+        annoksetInWhole += annoksetSavingista;
+        //muutta pilkku pisteksi
         String miksi4 = promin.replace(",", ".");
+        //koko annos että pystyn lisää kokonaisen annokseen
         double promina = Double.parseDouble(miksi4);
-
         prominMaara += promina;
+        //koko annos että pystyn lisää kokonaisen annokseen
         int kaloria = kalorit.getValue();
-
         kaloria += kalori;
         //Asetta sen tolle double muotossa
         String test = new DecimalFormat("##.##").format(prominMaara);
-        String tesaa = new DecimalFormat("##.##").format(endanno);
+        String tesaa = new DecimalFormat("##.##").format(annoksetInWhole);
 
         //tallentaa SP syötetyn nimen ja String
         saving.setStr("Annoksia " + stringDateMonthYear, tesaa);
         saving.setStr("Promille " + stringDateMonthYear, test);
         saving.setInt("Kalori " + stringDateMonthYear, kaloria);
 
+        //lasku että pystyn järjestää viikko numerot ja tallentaa
         counter = saving.getInt("Counter ");
         counter++;
         saving.setInt("Counter ", counter);
 
-
+        //talenta vuoden
         Saving year = new Saving(getActivity(), "Year");
 
         year.setStr(vuosia, vuosia);
@@ -831,59 +903,82 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         //done
     }
 
+    /**
+     * talentta viikot
+     */
     private void weekSaver() {
+        //hakee kansi nimeltään calendar_valuer
         Saving saving = new Saving(getActivity(), "Calendar_valuer");
+        //hakee counter
         int countera = saving.getInt("Counter ");
+        //tekee tai hakee viikko kansio sharedpreference
         Saving viikkoAsettaja = new Saving(getActivity(), "Viikko");
+        //Asetta avain sana viiko vuosi ja value counter vuosia ja viikko
         viikkoAsettaja.setStr(Week + vuosia, countera + " " + vuosia + " " + Week);
 
     }
 
+    /**
+     *talentaa kuukaudet
+     */
     private void KuukausiSaver() {
 
-
+        //hakee kansi nimeltään calendar_valuer
         Saving saving = new Saving(getActivity(), "Calendar_valuer");
+        //hakee counter
         int countera = saving.getInt("Counter ");
+        //tekee tai hakee kuukausi kansio sharedpreference
         Saving months = new Saving(getActivity(), "Months");
-
+        //heittä tämän vuoden laskin ja kuukausi numerona että pystyn järjestää
         MonthsCounter setter = new MonthsCounter(vuosia, Integer.toString(countera), stringDat);
+        //asetta sen  avain sana vuosia + " kuukausi"  ja value counter + " " + vuosia + " kuukausi"
         months.setStr(setter.Another(), setter.set());
 
     }
 
-
+    /**
+     * talentaa olut sharedpreference(SP)
+     */
     private void Olut() {
 
 
         //OLUT  Euro
-        //hakee sharedpreference(SP) kansion: oluEuro
+        //hakee sharedpreference(SP) kansion: viikkoJuomat
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
+        //hakee sharedpreference(SP) oluteuro
         String olutWeek = prefWeek.getStr("oluteuro" + Week + vuosia);
+        //asetta saman kun olutEurolasku
         olutEuroLaskuWeek = olutEuroLasku;
+        // muokka sen pilkku pistestä
+        String olutEuroReplace = olutWeek.replace(",", ".");
+        // lisää double olutEuroLaskuWeek
+        olutEuroLaskuWeek += Double.parseDouble(olutEuroReplace);
+        //muokkasen 21.12121->21.21
+        String decimalStyle = new DecimalFormat("##.##").format(olutEuroLaskuWeek);
+        //asetta sen sharedpreference(SP)
+        prefWeek.setStr("oluteuro" + Week + vuosia, decimalStyle);
 
-        String miksimiksi = olutWeek.replace(",", ".");
-        olutEuroLaskuWeek += Double.parseDouble(miksimiksi);
-
-        String euviikko = new DecimalFormat("##.##").format(olutEuroLaskuWeek);
-        prefWeek.setStr("oluteuro" + Week + vuosia, euviikko);
-
-
-        String ol = prefWeek.getStr("olutlitra" + Week + vuosia);
-
+        //Hakee olutlitra viiko
+        String olutL = prefWeek.getStr("olutlitra" + Week + vuosia);
+        //asetta saman kun olutLitralasku
         olutLitraLaskuWeek = olutLitraLasku;
-        String miksimiksi2 = ol.replace(",", ".");
-        olutLitraLaskuWeek += Double.parseDouble(miksimiksi2);
+        //muokkasen 21.12121->21.21
+        String style = olutL.replace(",", ".");
+        // lisää double olutLitraLaskuWeek
+        olutLitraLaskuWeek += Double.parseDouble(style);
+        //muokkasen 21.12121->21.21
+        decimalStyle = new DecimalFormat("##.##").format(olutLitraLaskuWeek);
+        //asetta sen sharedpreference(SP)
+        prefWeek.setStr("olutlitra" + Week + vuosia, decimalStyle);
 
-        euviikko = new DecimalFormat("##.##").format(olutLitraLaskuWeek);
-
-        prefWeek.setStr("olutlitra" + Week + vuosia, euviikko);
-
-
+        //hakee sharedpreference(SP) kansion: oluEuro
         Saving pref = new Saving(getActivity(), "olutEuro" + vuosia);
+        //hakee sharedpreference(SP) oluteuro
         String olut = pref.getStr("oluteuro" + euString);
-
-        String miksimiksi3 = olut.replace(",", ".");
-        double olutEuro = Double.parseDouble(miksimiksi3);
+        //muokkasen 21.12121->21.21
+        String decimalStyle2 = olut.replace(",", ".");
+        //muokkasen string ja lisää olutEurolasku
+        double olutEuro = Double.parseDouble(decimalStyle2);
         olutEuroLasku += olutEuro;
 
         //muokkaa decimaalin formatti
@@ -893,87 +988,114 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         pref.setStr("oluteuro" + euString, eu);
         //Olut Litra
         //hakee sharedpreference(SP) kansion: olutLitra
-
         Saving setLitra = new Saving(getActivity(), "olutLitra" + vuosia);
         //hakee sharedpreference tiedot että pystyn lisää
         String litra = setLitra.getStr("olutlitra" + euString);
-        //muokkasen double
-        String miksimiksi4 = litra.replace(",", ".");
-        double olutLitra = Double.parseDouble(miksimiksi4);
+        //muokkasen 21.12121->21.21
+        String litraFormatti = litra.replace(",", ".");
+        //muokkasen string ja lisää olutLitraLasku
+        double olutLitra = Double.parseDouble(litraFormatti);
         olutLitraLasku += olutLitra;
-        //asettaa SP editointi valmiuteen
-        //muokkaa decimaalin formatti
+        //muokkasen 21.12121->21.21
         String olutLitrao = new DecimalFormat("##.##").format(olutLitraLasku);
         //talentaa Shredpreference
         setLitra.setStr("olutlitra" + euString, olutLitrao);
 
-//done
     }
 
+    /**
+     * Tallentta viinit sharedpreference(SP)
+     */
     private void megaViini() {
         //VIINI
 
-        //hakee sharedpreference(SP) kansion: oluEuro
         //Viikko
+        // hakee sharedpreference(SP) kansion: viiko juomat
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
+        //hakee sharedpreference(SP) viinieuro
         String viiniWeek = prefWeek.getStr("viinieuro" + Week + vuosia);
+        // muokka sen pilkku pistestä
         String miksiViini = viiniWeek.replace(",", ".");
+        //asetta saman kun viiniEurolasku
         viiniEuroLaskuWeek = viiniEuroLasku;
+        // lisää double viiniEuroLaskuWeek
         viiniEuroLaskuWeek += Double.parseDouble(miksiViini);
-        String euviikko = new DecimalFormat("##.##").format(viiniEuroLaskuWeek);
-        prefWeek.setStr("viinieuro" + Week + vuosia, euviikko);
-
-
-        String ol = prefWeek.getStr("viinilitra" + Week + vuosia);
-        String miksiOl = ol.replace(",", ".");
+        //muokkasen 21.12121->21.21
+        String decimalStyle = new DecimalFormat("##.##").format(viiniEuroLaskuWeek);
+        //asetta sen
+        prefWeek.setStr("viinieuro" + Week + vuosia, decimalStyle);
+        //hakee viinilitra
+        String viiniLitra = prefWeek.getStr("viinilitra" + Week + vuosia);
+        //muokkasen 21.12121->21.21
+        String viiniLitaPiste = viiniLitra.replace(",", ".");
+        //asetta saman kun viiniLitralasku
         viiniLitraLaskuWeek = viiniLitraLasku;
-        viiniLitraLaskuWeek += Double.parseDouble(miksiOl);
-        String testing = new DecimalFormat("##.##").format(viiniLitraLaskuWeek);
-        prefWeek.setStr("viinilitra" + Week + vuosia, testing);
+        //lisää viiniLitralaskuweek
+        viiniLitraLaskuWeek += Double.parseDouble(viiniLitaPiste);
+        //muokkasen 21.12121->21.21
+        String viniDecimal = new DecimalFormat("##.##").format(viiniLitraLaskuWeek);
+        //asetta sen sharedpreference(SP)
+        prefWeek.setStr("viinilitra" + Week + vuosia, viniDecimal);
 
         //Kuukausi
+        //Hakee viiniLitra viiko
         Saving pref = new Saving(getActivity(), "viiniEuro" + vuosia);
+        //hakee viinieuro
         String viini = pref.getStr("viinieuro" + euString);
-        String miksiViiniViini = viini.replace(",", ".");
-        double viiniEuro = Double.parseDouble(miksiViiniViini);
+        //muokka pilkusta pisettesen
+        String viiniViini = viini.replace(",", ".");
+        //asetta saman kun viiniViini
+        double viiniEuro = Double.parseDouble(viiniViini);
+        //lisää viiniEuro viiniEurolaskuun
         viiniEuroLasku += viiniEuro;
-        //muokkaa decimaalin formatti
+        //muokkasen 21.12121->21.21
         String eu = new DecimalFormat("##.##").format(viiniEuroLasku);
         //talentaa Shredpreference
         pref.setStr("viinieuro" + euString, eu);
 
         //hakee sharedpreference(SP) kansion: olutLitra
-        Saving setLitra = new Saving(getActivity(), "viiniLitra" + vuosia);
+        Saving settiLitra = new Saving(getActivity(), "viiniLitra" + vuosia);
         //hakee sharedpreference tiedot että pystyn lisää
-        String litra = setLitra.getStr("viinilitra" + euString);
-        String miksiLitraLitra = litra.replace(",", ".");
+        String litra = settiLitra.getStr("viinilitra" + euString);
+        //muokkasen 21.12121->21.21
+        String muokattuLitra = litra.replace(",", ".");
 
         //muokkasen double
-        double viiniLitra = Double.parseDouble(miksiLitraLitra);
-
-        viiniLitraLasku += viiniLitra;
+        double viiniLitroi = Double.parseDouble(muokattuLitra);
+        //lisää viiniLitraLasku
+        viiniLitraLasku += viiniLitroi;
         //asettaa SP editointi valmiuteen
 
         //muokkaa decimaalin formatti
         String viiniLitrao = new DecimalFormat("##.##").format(viiniLitraLasku);
         //talentaa Shredpreference
-        setLitra.setStr("viinilitra" + euString, viiniLitrao);
+        settiLitra.setStr("viinilitra" + euString, viiniLitrao);
 
 
     }
 
+    /**
+     *Tallentaa siideri sharedpreference(SP)
+     */
     private void megaSiideri() {
         //siideri
 
         //hakee sharedpreference(SP) kansion: oluEuro
         //Viikko
+
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
+
         String siideriWeek = prefWeek.getStr("siiderieuro" + Week + vuosia);
+
         String miksiSiideriWeek = siideriWeek.replace(",", ".");
+
         siideriEuroLaskuWeek = siideriEuroLasku;
+
         siideriEuroLaskuWeek += Double.parseDouble(miksiSiideriWeek);
-        String euviikko = new DecimalFormat("##.##").format(siideriEuroLaskuWeek);
-        prefWeek.setStr("siiderieuro" + Week + vuosia, euviikko);
+
+        String decimalStyle = new DecimalFormat("##.##").format(siideriEuroLaskuWeek);
+
+        prefWeek.setStr("siiderieuro" + Week + vuosia, decimalStyle);
 
 
         String ol = prefWeek.getStr("siiderilitra" + Week + vuosia);
@@ -1013,48 +1135,68 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     }
 
+    /**
+     * Tallentaa lonkero sharedpreference(SP)
+     */
     private void megaLonkero() {
 
-        //hakee sharedpreference(SP) kansion: oluEuro
+
         //Viikko
+        //hakee sharedpreference(SP) kansion: viikkoJuomat
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
+        //hakee sharedpreference(SP) lonkeroeuro
         String lonkeroWeek = prefWeek.getStr("lonkeroeuro" + Week + vuosia);
-        String miksiLonkeroLonkero = lonkeroWeek.replace(",", ".");
+        // muokka sen pilkku pistestä
+        String lonkeroPiste = lonkeroWeek.replace(",", ".");
+        //asetta saman kun lonkeroEurolasku
         lonkeroEuroLaskuWeek = lonkeroEuroLasku;
-        lonkeroEuroLaskuWeek += Double.parseDouble(miksiLonkeroLonkero);
-        String euviikko = new DecimalFormat("##.##").format(lonkeroEuroLaskuWeek);
-        prefWeek.setStr("lonkeroeuro" + Week + vuosia, euviikko);
+        // lisää double lonkeroEuroLaskuWeek
+        lonkeroEuroLaskuWeek += Double.parseDouble(lonkeroPiste);
+        //muokkasen 21.12121->21.21
+        String decimalStyle = new DecimalFormat("##.##").format(lonkeroEuroLaskuWeek);
+        //asetta sen sharedpreference(SP)
+        prefWeek.setStr("lonkeroeuro" + Week + vuosia, decimalStyle);
 
-
+        //Hakee lonkeroLitra viikko
         String ol = prefWeek.getStr("lonkerolitra" + Week + vuosia);
-        String miksiOlOlOl = ol.replace(",", ".");
+        // muokka sen pilkku pistestä
+        String lonkeroFormant = ol.replace(",", ".");
+        //asetta saman kun lonkeroLitralasku
         lonkeroLitraLaskuWeek = lonkeroLitraLasku;
-        lonkeroLitraLaskuWeek += Double.parseDouble(miksiOlOlOl);
-        euviikko = new DecimalFormat("##.##").format(lonkeroLitraLaskuWeek);
-        prefWeek.setStr("lonkerolitra" + Week + vuosia, euviikko);
+        // lisää double lonkeroLitraLaskuWeek
+        lonkeroLitraLaskuWeek += Double.parseDouble(lonkeroFormant);
+        //muokkasen 21.12121->21.21
+        decimalStyle = new DecimalFormat("##.##").format(lonkeroLitraLaskuWeek);
+        //asetta sen sharedpreference(SP)
+        prefWeek.setStr("lonkerolitra" + Week + vuosia, decimalStyle);
 
         //Kuukausi
         Saving pref = new Saving(getActivity(), "lonkeroEuro" + vuosia);
+        //Hakee lonkeroEuro
         String lonkero = pref.getStr("lonkeroeuro" + euString);
-        String miksiLonkeroLonkeroLonkero = lonkero.replace(",", ".");
-        double lonkeroEuro = Double.parseDouble(miksiLonkeroLonkeroLonkero);
+        // muokka sen pilkku pistestä
+        String lonkerino = lonkero.replace(",", ".");
+
+        //muokkasen string ja lisää lonkeroEurolasku
+        double lonkeroEuro = Double.parseDouble(lonkerino);
         lonkeroEuroLasku += lonkeroEuro;
+
         //muokkaa decimaalin formatti
         String eu = new DecimalFormat("##.##").format(lonkeroEuroLasku);
         //talentaa Shredpreference
         pref.setStr("lonkeroeuro" + euString, eu);
 
-        //hakee sharedpreference(SP) kansion: olutLitra
+        //hakee sharedpreference(SP) kansion: lonkeroLitra
         Saving setLitra = new Saving(getActivity(), "lonkeroLitra" + vuosia);
         //hakee sharedpreference tiedot että pystyn lisää
         String litra = setLitra.getStr("lonkerolitra" + euString);
+        // muokka sen pilkku pistestä
         String miksiLitraLitraLitra = litra.replace(",", ".");
 
         //muokkasen double
         double lonkeroLitra = Double.parseDouble(miksiLitraLitraLitra);
-
         lonkeroLitraLasku += lonkeroLitra;
-        //asettaa SP editointi valmiuteen
+
 
         //muokkaa decimaalin formatti
         String lonkeroLitrao = new DecimalFormat("##.##").format(lonkeroLitraLasku);
@@ -1063,77 +1205,117 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
 
     }
 
+    /**
+     * Tallentaa liikori sharedpreference(SP)
+     */
     private void megaLiikori() {
 
-        //hakee sharedpreference(SP) kansion: oluEuro
+
         //Viikko
+        //hakee sharedpreference(SP) kansion: viikkoJuomat
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
+        //hakee sharedpreference(SP) likoorieuro
         String likooriWeek = prefWeek.getStr("likoorieuro" + Week + vuosia);
-        String miksiLikooriWeek = likooriWeek.replace(",", ".");
+        // muokka sen pilkku pistestä
+        String likooriWeekPiste = likooriWeek.replace(",", ".");
+        //asetta saman kun liikoriEurolasku
         likooriEuroLaskuWeek = likooriEuroLasku;
-        likooriEuroLaskuWeek += Double.parseDouble(miksiLikooriWeek);
-        String euviikko = new DecimalFormat("##.##").format(likooriEuroLaskuWeek);
-        prefWeek.setStr("likoorieuro" + Week + vuosia, euviikko);
-
-
+        // lisää double likooriEuroLaskuWeek
+        likooriEuroLaskuWeek += Double.parseDouble(likooriWeekPiste);
+        //muokkasen 21.12121->21.21
+        String decimalStyle = new DecimalFormat("##.##").format(likooriEuroLaskuWeek);
+        //asetta sen sharedpreference(SP)
+        prefWeek.setStr("likoorieuro" + Week + vuosia, decimalStyle);
+        //hakee sharedpreference(SP) likoorilitra
         String ol = prefWeek.getStr("likoorilitra" + Week + vuosia);
-        String miksiOlOlOlOl = ol.replace(",", ".");
+        // muokka sen pilkku pistestä
+        String liikoriPiste = ol.replace(",", ".");
+        //asetta saman kun likooriLitraLaskuWeek
         likooriLitraLaskuWeek = likooriLitraLasku;
-        likooriLitraLaskuWeek += Double.parseDouble(miksiOlOlOlOl);
+        //lisää double likootiLitraLaskuWeek
+        likooriLitraLaskuWeek += Double.parseDouble(liikoriPiste);
+        //muokkasen 21.12121->21.21
         String testing = new DecimalFormat("##.##").format(likooriLitraLaskuWeek);
+        //asetta sen sharedpreference(SP)
         prefWeek.setStr("likoorilitra" + Week + vuosia, testing);
 
         //Kuukausi
+        //hakee sharedpreference(SP) kansion: likooriEuro
         Saving pref = new Saving(getActivity(), "likooriEuro" + vuosia);
+        //hakee sharedpreference(SP) likoorieuro
         String likoori = pref.getStr("likoorieuro" + euString);
+        // muokka sen pilkku pistestä
         String miksiLikooriLikoori = likoori.replace(",", ".");
+
+        //muokkasen string ja lisää likooriEuro
         double likooriEuro = Double.parseDouble(miksiLikooriLikoori);
         likooriEuroLasku += likooriEuro;
-        //muokkaa decimaalin formatti
+
+        //muokkasen 21.12121->21.21
         String eu = new DecimalFormat("##.##").format(likooriEuroLasku);
+
         //talentaa Shredpreference
         pref.setStr("likoorieuro" + euString, eu);
 
         //hakee sharedpreference(SP) kansion: olutLitra
         Saving setLitra = new Saving(getActivity(), "likooriLitra" + vuosia);
+
         //hakee sharedpreference tiedot että pystyn lisää
         String litra = setLitra.getStr("likoorilitra" + euString);
+        // muokka sen pilkku pistestä
         String miksiLikooriLitra = litra.replace(",", ".");
-        //muokkasen double
+        //muokkasen double ja lisää sen
         double likooriLitra = Double.parseDouble(miksiLikooriLitra);
         likooriLitraLasku += likooriLitra;
-        //asettaa SP editointi valmiuteen
 
-        //muokkaa decimaalin formatti
+        //muokkasen 21.12121->21.21
         String likooriLitrao = new DecimalFormat("##.##").format(likooriLitraLasku);
         //talentaa Shredpreference
         setLitra.setStr("likoorilitra" + euString, likooriLitrao);
     }
 
-
+    /**
+     * Tallentaa viski sharedpreference(SP)
+     */
     private void megaViiski() {
-        //hakee sharedpreference(SP) kansion: oluEuro
+
         //Viikko
+        // hakee sharedpreference(SP) kansion: oluEuro
         Saving prefWeek = new Saving(getActivity(), "viikkoJuomat");
+        //hakee sharedpreference(SP) viskieuro
         String viskiWeek = prefWeek.getStr("viskieuro" + Week + vuosia);
+        // muokka sen pilkku pistestä
         String miksiViskiWeek = viskiWeek.replace(",", ".");
+        //asetta saman kun viskiEuroLasku
         viskiEuroLaskuWeek = viskiEuroLasku;
+        // lisää double viskiEuroLaskuWeek
         viskiEuroLaskuWeek += Double.parseDouble(miksiViskiWeek);
-        String euviikko = new DecimalFormat("##.##").format(viskiEuroLaskuWeek);
-        prefWeek.setStr("viskieuro" + Week + vuosia, euviikko);
+        //muokkasen 21.12121->21.21
+        String decimalStyle = new DecimalFormat("##.##").format(viskiEuroLaskuWeek);
+        //asetta sen sharedpreference(SP)
+        prefWeek.setStr("viskieuro" + Week + vuosia, decimalStyle);
 
-
+        //hakee sharedpreference(SP) viskilitra
         String ol = prefWeek.getStr("viskilitra" + Week + vuosia);
-        String miksiOlli = ol.replace(",", ".");
+        // muokka sen pilkku pistestä
+        String viskiMan = ol.replace(",", ".");
+        //asetta saman kun viskiLitraLasku
         viskiLitraLaskuWeek = viskiLitraLasku;
-        viskiLitraLaskuWeek += Double.parseDouble(miksiOlli);
+        // lisää double viskiLitraLaskuWeek
+        viskiLitraLaskuWeek += Double.parseDouble(viskiMan);
+        //muokkasen 21.12121->21.21
         String testing = new DecimalFormat("##.##").format(viskiLitraLaskuWeek);
+        //asetta sen sharedpreference(SP)
         prefWeek.setStr("viskilitra" + Week + vuosia, testing);
 
         //Kuukausi
+        //hakee sharedpreference(SP) kansion: viskiEuro
         Saving pref = new Saving(getActivity(), "viskiEuro" + vuosia);
+        //hakee sharedpreference(SP) viskieuro
         String viski = pref.getStr("viskieuro" + euString);
+        // muokka sen pilkku pistestä
         String miksiViskiViski = viski.replace(",", ".");
+        //muokkasen double ja lisää sen
         double viskiEuro = Double.parseDouble(miksiViskiViski);
         viskiEuroLasku += viskiEuro;
         //muokkaa decimaalin formatti
@@ -1145,12 +1327,12 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         Saving setLitra = new Saving(getActivity(), "viskiLitra" + vuosia);
         //hakee sharedpreference tiedot että pystyn lisää
         String litra = setLitra.getStr("viskilitra" + euString);
+        // muokka sen pilkku pistestä
         String miksiLitraLitraLitra = litra.replace(",", ".");
-        //muokkasen double
+        //muokkasen double ja lisää sen
         double viskiLitra = Double.parseDouble(miksiLitraLitraLitra);
-
         viskiLitraLasku += viskiLitra;
-        //asettaa SP editointi valmiuteen
+
 
         //muokkaa decimaalin formatti
         String viskiLitrao = new DecimalFormat("##.##").format(viskiLitraLasku);
@@ -1158,6 +1340,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         setLitra.setStr("viskilitra" + euString, viskiLitrao);
     }
 
+    /**
+     * Tallentaa viini sharedpreference(SP)
+     */
     private void megaViina() {
         //hakee sharedpreference(SP) kansion: oluEuro
 
@@ -1167,8 +1352,8 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
         String miksiViinaWeek = viinaWeek.replace(",", ".");
         viinaEuroLaskuWeek = viinaEuroLasku;
         viinaEuroLaskuWeek += Double.parseDouble(miksiViinaWeek);
-        String euviikko = new DecimalFormat("##.##").format(viinaEuroLaskuWeek);
-        prefWeek.setStr("viinaeuro" + Week + vuosia, euviikko);
+        String decimalStyle = new DecimalFormat("##.##").format(viinaEuroLaskuWeek);
+        prefWeek.setStr("viinaeuro" + Week + vuosia, decimalStyle);
 
 
         String ol = prefWeek.getStr("viinalitra" + Week + vuosia);
@@ -1265,7 +1450,9 @@ public class HomeFragment extends Fragment implements AdapterView.OnItemSelected
     }
 
     /**
-     * @promillelaskuri
+     * promillelaskurissa lasketaan promillien määrä: laskemalla alkoholigramma-counterien arvot yhteen, hakemalla käyttäjän syöttämä paino ja sukupuoli sharedPreferencistä, syöttämällä muuttujat laskuun.
+     * Tulos muuttuja sisältää laskusta saadun promillemäärän
+     * Tulos päivitetään textViewiin
      */
     public void promillelaskuri() {
         SharedPreferences prefGet = getActivity().getSharedPreferences("Date_value", Activity.MODE_PRIVATE);

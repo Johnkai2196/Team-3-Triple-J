@@ -50,11 +50,20 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
     ArrayList<String> arrayToday = new ArrayList<>();
     Map<Integer, String> treemap = new TreeMap<Integer, String>(Collections.reverseOrder());
 
+    /**
+     * Luo tämän fragmentin näkymä sille annettujen argumenttien avulla.
+     *
+     * @param inflater           LayoutInflater-objekti, jota voidaan käyttää kaikkien fragmenttien paisuttamiseen
+     * @param container          Jos se ei ole non-null, tämä on päänäkymä, johon fragmentin käyttöliittymä tulisi liittää.
+     *                           Katkelman ei pitäisi lisätä itse näkymää, mutta sitä voidaan käyttää näkymän LayoutParam-tiedostojen luomiseen. Tämä arvo voi olla tyhjä
+     * @param savedInstanceState Jos se ei ole non-null, tätä fragmenttia rakennetaan uudelleen edellisestä tallennetusta tilasta, kuten tässä on annettu.
+     * @return palautta minun luotu xml
+     */
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
+        //luo View minun xml:sstä
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
 
         return root;
@@ -114,9 +123,11 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
                 }
                 //if varten
                 arrayList.add("1");
-
+                //pistä sen spinnerin
                 ArrayAdapter<String> vuosiAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayViikko);
+                //millainen spinnner
                 vuosiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //Asettaa tämän ListView-kuvan takana olevat tiedot. Tähän menetelmään välitetyn sovittimen voi kääriä WrapperListAdapter, tällä hetkellä käytössä olevien ListView-ominaisuuksien mukaan
                 vuosiSpinner.setAdapter(vuosiAdapter);
 
             }
@@ -166,8 +177,11 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
                 //if varten
                 arrayVuosi.add("1");
+                //pistä sen spinnerin
                 ArrayAdapter<String> vuosiAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, array);
+                //millainen spinnner
                 vuosiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //Asettaa tämän ListView-kuvan takana olevat tiedot. Tähän menetelmään välitetyn sovittimen voi kääriä WrapperListAdapter, tällä hetkellä käytössä olevien ListView-ominaisuuksien mukaan
                 vuosiSpinner.setAdapter(vuosiAdapter);
 
 
@@ -200,9 +214,11 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
                     arrayVuosi.add("Vuosi " + entry.getValue().toString());
 
                 }
-
+                //pistä sen spinnerin
                 ArrayAdapter<String> vuosiAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayVuosi);
+                //millainen spinnner
                 vuosiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                //Asettaa tämän ListView-kuvan takana olevat tiedot. Tähän menetelmään välitetyn sovittimen voi kääriä WrapperListAdapter, tällä hetkellä käytössä olevien ListView-ominaisuuksien mukaan
                 vuosiSpinner.setAdapter(vuosiAdapter);
 
             }
@@ -210,9 +226,13 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
         });
         //kun mene kulutus fragmenttin ja ei ole valinnut mitään
         arrayToday.add("Valitse ajankohta painikkeista");
+        //pistä sen spinnerin
         ArrayAdapter<String> vuosiAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arrayToday);
+        //millainen spinnner
         vuosiAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Asettaa tämän ListView-kuvan takana olevat tiedot. Tähän menetelmään välitetyn sovittimen voi kääriä WrapperListAdapter, tällä hetkellä käytössä olevien ListView-ominaisuuksien mukaan
         vuosiSpinner.setAdapter(vuosiAdapter);
+        //Rekisteröi painausta, kun tätä AdapterView-kohdetta on napsautettu.
         vuosiSpinner.setOnItemSelectedListener(this);
     }
 
@@ -277,7 +297,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
             litra = new DecimalFormat("##.##").format(makeitSnow);
-            // vaihta pistettä pilkkuun
+            // vaihta pilkut pisteeksi
             vaihtaja = test.replace(",", ".");
             end = litra.replace(",", ".");
 
@@ -317,7 +337,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
             litra = new DecimalFormat("##.##").format(makeitSnow);
-            // vaihta pistettä pilkkuun
+            // vaihta pilkkun pisteksi
             vaihtaja = test.replace(",", ".");
             end = litra.replace(",", ".");
 
@@ -409,7 +429,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
             litra = new DecimalFormat("##.##").format(makeitSnow);
-            // vaihta pistettä pilkkuun
+            // vaihta pilkkun pisteksi
             vaihtaja = test.replace(",", ".");
             end = litra.replace(",", ".");
 
@@ -458,7 +478,7 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
             //Muokka seen double formatti 12,12254 -> 12,12
             test = new DecimalFormat("##.##").format(makeItRain);
             litra = new DecimalFormat("##.##").format(makeitSnow);
-            // vaihta pistettä pilkkuun
+            // vaihta pilkkun pisteksi
             vaihtaja = test.replace(",", ".");
             end = litra.replace(",", ".");
 
@@ -492,8 +512,8 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
         String vuosia = str[2];
         //hakee sharedpreference(SP) (tuottennimi)euro, viiko ja vuoden avain sanalla
         String end = pref.getStr(surprice + "euro" + viikoa + vuosia);
-
-        String miksiEuro = end.replace(",",".");
+        // vaihta pilkkun pisteksi
+        String miksiEuro = end.replace(",", ".");
         // muokkasen doubleksi
         double Euro = Double.parseDouble(miksiEuro);
 
@@ -502,7 +522,6 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
         //muokka sen takaisin string
         String test = Double.toString(Euro);
 
-        //Piste muuttu pilkuksi
 
         //palautta mitä on saanut
         return test;
@@ -526,14 +545,15 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
         String vuosia = str[2];
         //hakee sharedpreference(SP) (tuottennimi)litra, viiko ja vuoden avain sanalla
         String litra = pref.getStr(surprice + "litra" + viikoa + vuosia);
-        String miksiLitra = litra.replace(",",".");
+        // vaihta pilkkun pisteksi
+        String miksiLitra = litra.replace(",", ".");
         // muokkasen doubleksi
         double endGame = Double.parseDouble(miksiLitra);
         //laskee kaikki litra yhtensä
         makeitSnow += endGame;
         //muokka sen takaisin string
         String wee = Double.toString(endGame);
-        //Piste muuttu pilkuksi
+
 
         //palautta mitä on saanut
         return wee;
@@ -555,14 +575,16 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
         //Hakee avain sanalla juoma esim:olutEuro, kuukausi ja vuoden avain sanalla
         String olut = pref.getStr(productSmall + kuukausi + str2);
+
+        // vaihta pilkkun pisteksi
+        String miksiMonthEuro = olut.replace(",", ".");
         //muokka string to double
-        String miksiMonthEuro = olut.replace(",",".");
         double olutEuro = Double.parseDouble(miksiMonthEuro);
         //laskee kaikki eurot yhtensä
         makeItRain += olutEuro;
         //muokka sen takaisin string
         String test = Double.toString(olutEuro);
-        //Piste muuttu pilkuksi
+
 
         //palautta mitä on saanut
         return test;
@@ -583,8 +605,9 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
         //Hakee avain sanalla juoma esim:olutlitra, kuukausi ja vuoden avain sanalla
         String olut = pref.getStr(productSmall + kuukausi + str2);
+        // vaihta pilkkun pisteksi
+        String miksiMonth = olut.replace(",", ".");
         //muokka string to double
-        String miksiMonth = olut.replace(",",".");
         double olutEuro = Double.parseDouble(miksiMonth);
         //laskee kaikki litra yhtensä
         makeitSnow += olutEuro;
@@ -616,8 +639,9 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
 
             //hankki string
             String test = entry.getValue().toString();
+            // vaihta pilkkun pisteksi
+            String miksi = test.replace(",", ".");
             //muokka string to double
-            String miksi = test.replace(",",".");
             double olutEuro = Double.parseDouble(miksi);
             //lisää sen double
             olutar += olutEuro;
@@ -651,8 +675,9 @@ public class KulutusFragment extends Fragment implements AdapterView.OnItemSelec
         for (Map.Entry<String, ?> entry : keysa.entrySet()) {
             //hankki string
             String test = entry.getValue().toString();
+            // vaihta pilkkun pisteksi
+            String miksi2 = test.replace(",", ".");
             //muokka string to double
-            String miksi2 = test.replace(",",".");
             double olutEuro = Double.parseDouble(miksi2);
             //lisää sen double
             olutar += olutEuro;
